@@ -24,9 +24,4 @@
         android:icon="@drawable/ic_profile"
         android:title="Profile"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_more"
-        android:icon="@drawable/ic_more"
-        android:title="More"
-        app:showAsAction="always|withText" />
 </menu>

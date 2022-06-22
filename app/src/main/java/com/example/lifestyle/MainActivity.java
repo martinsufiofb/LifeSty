@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
-    private NavigationView navigationView;
+    private NavigationView sideNavigationView;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     int currentFragment = 0;
@@ -39,13 +40,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerLayout = findViewById(R.id.drawerLayout);
+        sideNavigationView = findViewById(R.id.side_navigation);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = findViewById(R.id.side_navigation);
 
+        sideNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId()==R.id.nav_logout){
+                    Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,22 +75,25 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new FriendsFragment();
                         newFragment = 2;
                         break;
-                    case R.id.action_profile:
-                        fragment = new ProfileFragment();
-                        newFragment = 3;
-                        break;
                     default:
                         fragment = new ProfileFragment();
+                        newFragment = 3;
                         break;
                 }
                 if(newFragment>currentFragment){
                     //slide right
-                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_left_enter, R.anim.slide_left_exit, R.anim.slide_right_enter, R.anim.slide_right_exit).replace(R.id.flContainer, fragment).commit();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left)
+                            .replace(R.id.flContainer, fragment)
+                            .commit();
                     currentFragment = newFragment;
 
                 }else if (currentFragment>newFragment){
                     //slide left
-                    fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_right_enter, R.anim.slide_right_exit, R.anim.slide_left_enter, R.anim.slide_left_exit).replace(R.id.flContainer, fragment).commit();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
+                            .replace(R.id.flContainer, fragment)
+                            .commit();
                     currentFragment = newFragment;
                 }else{
                     fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
