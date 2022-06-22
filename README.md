@@ -105,7 +105,7 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 <img src="https://github.com/martinsufiofb/LifeStyle/blob/main/IMG_4487.JPG" width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
-
+<img src="https://github.com/martinsufiofb/LifeStyle/blob/main/Screen%20Shot%202022-06-21%20at%205.23.58%20PM.png" width=600>
 ### [BONUS] Interactive Prototype
 
 ## Schema 
