@@ -1,12 +1,15 @@
 package com.example.lifestyle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -28,96 +31,116 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
-    private NavigationView sideNavigationView;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
     int currentFragment = 0;
     int newFragment;
+    private static final int NUM_PAGES=4;
+    private ViewPager2 viewPager2;
+    private FragmentStateAdapter pageAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mDrawerLayout = findViewById(R.id.drawerLayout);
-        sideNavigationView = findViewById(R.id.side_navigation);
-        mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager2 = findViewById(R.id.VP);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        pageAdapter = new ScreenSlidePageAdapter(this);
+        viewPager2.setAdapter(pageAdapter);
+        setBottomNavigation();
+        setViewPagerListener();
+        
 
 
-        sideNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+
+    }
+
+    private void setViewPagerListener() {
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.nav_logout){
-                    Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_SHORT).show();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    bottomNavigationView.setSelectedItemId(R.id.action_home);
                 }
-                return true;
+                if(position==1){
+                    bottomNavigationView.setSelectedItemId(R.id.action_search);
+                }
+                if(position==2){
+                    bottomNavigationView.setSelectedItemId(R.id.action_friends);
+                }
+                if(position==3){
+                    bottomNavigationView.setSelectedItemId(R.id.action_profile);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+//                super.onPageScrollStateChanged(state);
             }
         });
+    }
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+    private void setBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        fragment = new HomeFragment();
-                        newFragment = 0;
-                        break;
-                    case R.id.action_search:
-                        fragment = new SearchFragment();
-                        newFragment = 1;
-                        break;
-                    case R.id.action_friends:
-                        fragment = new FriendsFragment();
-                        newFragment = 2;
-                        break;
-                    default:
-                        fragment = new ProfileFragment();
-                        newFragment = 3;
-                        break;
+                if(item.getItemId()==R.id.action_home){
+                    viewPager2.setCurrentItem(0);
                 }
-                if(newFragment>currentFragment){
-                    //slide right
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.enter_right_to_left, R.anim.exit_right_to_left)
-                            .replace(R.id.flContainer, fragment)
-                            .commit();
-                    currentFragment = newFragment;
-
-                }else if (currentFragment>newFragment){
-                    //slide left
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.enter_left_to_right,R.anim.exit_left_to_right)
-                            .replace(R.id.flContainer, fragment)
-                            .commit();
-                    currentFragment = newFragment;
-                }else{
-                    fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                if(item.getItemId()==R.id.action_search){
+                    viewPager2.setCurrentItem(1);
+                }
+                if(item.getItemId()==R.id.action_friends){
+                    viewPager2.setCurrentItem(2);
+                }
+                if(item.getItemId()==R.id.action_profile){
+                    viewPager2.setCurrentItem(3);
                 }
                 return true;
             }
         });
-
-        bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-
-
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(mToggle.onOptionsItemSelected(item)){
-            return true;
+    private class ScreenSlidePageAdapter extends FragmentStateAdapter {
+        public ScreenSlidePageAdapter(MainActivity mainActivity) {super(mainActivity);}
+
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            Fragment fragment;
+            switch (position) {
+                case 0:
+                    fragment = new HomeFragment();
+                    break;
+                case 1:
+                    fragment = new SearchFragment();
+                    break;
+                case 2:
+                    fragment = new FriendsFragment();
+                    break;
+                case 3:
+                    fragment = new ProfileFragment();
+                    break;
+                default:
+                    return null;
+            }
+            return fragment;
+
         }
 
-
-        return true;
+        @Override
+        public int getItemCount() {
+            return NUM_PAGES;
+        }
     }
+
 
 
 
