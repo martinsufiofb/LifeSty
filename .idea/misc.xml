@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.39855072463768115" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.39855072463768115" />
+        <entry key="app/src/main/res/layout/item_exercise.xml" value="0.3533534582208304" />
         <entry key="app/src/main/res/layout/navigation_header.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.31215820312500003" />
         <entry key="app/src/main/res/menu/menu_side_navigation.xml" value="0.2851851851851852" />

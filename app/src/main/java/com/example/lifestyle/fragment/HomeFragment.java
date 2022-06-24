@@ -2,13 +2,27 @@ package com.example.lifestyle.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lifestyle.Exercise;
+import com.example.lifestyle.ExercisesAdapter;
 import com.example.lifestyle.R;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +35,10 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static String TAG = "HomeFragment";
+    private RecyclerView rvExercises;
+    private ExercisesAdapter adapter;
+    private List<Exercise> allExercises;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,4 +81,41 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rvExercises = view.findViewById(R.id.rvExercises);
+
+        allExercises = new ArrayList<>();
+        adapter = new ExercisesAdapter(getContext(), allExercises);
+
+
+        rvExercises.setAdapter(adapter);
+        rvExercises.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        queryExercises();
+    }
+
+    private void queryExercises() {
+        ParseQuery<Exercise> query = ParseQuery.getQuery(Exercise.class);
+
+        query.findInBackground(new FindCallback<Exercise>() {
+            @Override
+            public void done(List<Exercise> exercises, ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Issue getting exercises", e);
+                    return;
+                }
+                for (Exercise exercise: exercises){
+                    Log.i(TAG, "Exercises: " + exercise.getTitle());
+                }
+                allExercises.addAll(exercises);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
 }
