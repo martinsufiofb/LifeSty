@@ -10,7 +10,7 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="370dp"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="10dp">
 
@@ -18,13 +18,15 @@
             android:id="@+id/ivImageExercise"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/tvTitleExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="290dp"
+            android:layout_marginTop="240dp"
             android:text="YES"
             android:padding="5dp"
             android:textColor="@color/black"
@@ -35,10 +37,8 @@
             android:id="@+id/tvDescriptionExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="330dp"
+            android:layout_marginTop="280dp"
             android:textColor="@color/black"
-            android:maxLines="3"
-            android:ellipsize="end"
             android:padding="5dp"
             android:text="Description"/>
     </androidx.cardview.widget.CardView>
