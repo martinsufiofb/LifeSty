@@ -14,38 +14,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:text="Sign UP"
+        android:layout_marginTop="50dp"
+        android:text="Signup"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"/>
 
 
     <EditText
         android:id="@+id/etUsername1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:padding="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_marginTop="20dp"
-        android:hint="Enter username" />
+        android:background="@drawable/background_edit_text"
+        android:layout_marginTop="10dp"
+        android:hint="Enter username..." />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"/>
 
 
     <EditText
         android:id="@+id/etPassword1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:background="@drawable/background_edit_text"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Enter Password"
+        android:hint="Enter Password..."
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnBotton1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Sign UP" />
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
+        android:text="SIGNUP" />
 
     <TextView
         android:id="@+id/tvRegister"
@@ -53,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="ALEADY HAVE AN ACCOUNT?" />
+        android:text="ALREADY HAVE AN ACCOUNT?" />
 
 
 </LinearLayout>
