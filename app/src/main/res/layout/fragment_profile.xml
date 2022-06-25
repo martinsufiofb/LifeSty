@@ -12,7 +12,30 @@
         android:layout_height="270dp"
         android:layout_marginStart="-100dp"
         android:layout_marginEnd="-100dp"
-        android:background="@drawable/radius"></RelativeLayout>
+        android:gravity="center"
+        android:background="@drawable/radius">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivprofilepic"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp"
+            android:src="@drawable/dpdefault"/>
+
+        <TextView
+            android:id="@+id/tvProfileUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="21sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/ivprofilepic"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlAwards"
@@ -106,7 +129,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHistory"
         android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="3dp"
+        android:padding="8dp"
         android:layout_height="match_parent"
+        android:background="@drawable/background_edit_text"
         android:layout_above="@+id/LLlogout"
         android:layout_below="@+id/tvHistory"
         />
