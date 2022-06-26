@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -16,6 +17,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText etusername;
     private EditText etpassword;
     private Button btnButton;
+    private TextView hasAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,15 @@ public class SignupActivity extends AppCompatActivity {
         etusername = findViewById(R.id.etUsername1);
         etpassword =findViewById(R.id.etPassword1);
         btnButton =findViewById(R.id.btnBotton1);
+        hasAccount = findViewById(R.id.tvHasAccount);
+
+        hasAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnButton.setOnClickListener(new View.OnClickListener() {
             @Override
