@@ -31,18 +31,17 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
-    int currentFragment = 0;
-    int newFragment;
     private static final int NUM_PAGES=4;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
-
+    boolean home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        home =false;
         viewPager2 = findViewById(R.id.VP);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         pageAdapter = new ScreenSlidePageAdapter(this);
@@ -55,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
+
 
     private void setViewPagerListener() {
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -86,24 +87,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     private void setBottomNavigation() {
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.action_home){
+
+                if(item.getItemId()==R.id.action_home && home!=true ){
                     viewPager2.setCurrentItem(0);
+                    home = true;
+                    return true;
                 }
                 if(item.getItemId()==R.id.action_search){
                     viewPager2.setCurrentItem(1);
+                    home = false;
                 }
                 if(item.getItemId()==R.id.action_friends){
                     viewPager2.setCurrentItem(2);
+                    home = false;
                 }
                 if(item.getItemId()==R.id.action_profile){
                     viewPager2.setCurrentItem(3);
+                    home = false;
+                }
+                if(home==true){
+                    HomeFragment.rvExercises.smoothScrollToPosition(0);
+
                 }
                 return true;
             }
+
+
         });
     }
 
