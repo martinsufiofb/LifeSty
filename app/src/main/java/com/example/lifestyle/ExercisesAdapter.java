@@ -1,6 +1,7 @@
 package com.example.lifestyle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
         return exercises.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView tvTitle;
         private TextView tvDescription;
@@ -53,6 +54,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             tvTitle = itemView.findViewById(R.id.tvTitleExercise);
             tvDescription = itemView.findViewById(R.id.tvDescriptionExercise);
             ivImage = itemView.findViewById(R.id.ivImageExercise);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -60,6 +62,17 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             tvDescription.setText(exercise.getDescription());
             tvTitle.setText(exercise.getTitle());
             Glide.with(context).load(exercise.getImage().getUrl()).into(ivImage);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if(position!=RecyclerView.NO_POSITION){
+                Intent intent = new Intent(context, ExercisesCounter.class);
+                intent.putExtra("page",position);
+                context.startActivity(intent);
+
+            }
         }
     }
 
