@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lifestyle.LoginActivity;
@@ -27,7 +28,9 @@ import com.parse.ParseUser;
  */
 public class ProfileFragment extends Fragment {
     private static String TAG = "ProfileFragment";
-    private LinearLayout logout;
+    LinearLayout logout;
+    String currentUserUsername;
+    TextView profileUsername;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -80,12 +83,17 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        currentUserUsername = ParseUser.getCurrentUser().getUsername();
+        profileUsername = view.findViewById(R.id.tvProfileUsername);
+        profileUsername.setText(currentUserUsername);
+
         logout =  view.findViewById(R.id.LLlogout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 logout();
             }
+
         });
     }
 
