@@ -1,32 +1,27 @@
 package com.example.lifestyle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
+
 import android.view.MenuItem;
-import android.view.MotionEvent;
+
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+
 
 import com.example.lifestyle.fragment.FriendsFragment;
 import com.example.lifestyle.fragment.HomeFragment;
 import com.example.lifestyle.fragment.ProfileFragment;
 import com.example.lifestyle.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
