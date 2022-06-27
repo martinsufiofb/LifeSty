@@ -163,10 +163,8 @@ public class ProfileFragment extends Fragment {
 
                 squatsList.addAll(squats);
                 for(int i = 0; i<squatsList.size(); i++){
-                    Log.i(TAG,"TOTALRUN: "+squatsTotal);
                     squatsTotal+= Integer.parseInt(squatsList.get(i).getCount());
                 }
-                Log.i(TAG,"TOTAL: "+squatsTotal);
                 secondCircle.setText(String.valueOf(squatsTotal));
             }
         });
