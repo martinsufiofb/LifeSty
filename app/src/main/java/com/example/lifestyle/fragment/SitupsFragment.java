@@ -2,13 +2,23 @@ package com.example.lifestyle.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.lifestyle.History;
 import com.example.lifestyle.R;
+import com.example.lifestyle.Situps;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +26,12 @@ import com.example.lifestyle.R;
  * create an instance of this fragment.
  */
 public class SitupsFragment extends Fragment {
+
+    public TextView situpCount;
+    public Button situpButton;
+    public Button situpDoneButton;
+    public int situpNo = 0;
+    private static final String TAG = "SitupsFragments";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +78,71 @@ public class SitupsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_situps, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        situpCount = view.findViewById(R.id.situpCount);
+        situpButton = view.findViewById(R.id.situpButton);
+        situpDoneButton = view.findViewById(R.id.situpDoneButton);
+        situpNo = Integer.parseInt(situpCount.getText().toString());
+        situpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                situpNo++;
+                situpCount.setText(String.valueOf(situpNo));
+            }
+        });
+
+        situpDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String count = String.valueOf(situpNo);
+                saveHistory(currentUser, count, "Sit Ups");
+                saveSitups(currentUser,count);
+
+            }
+        });
+
+
+    }
+
+    private void saveSitups(ParseUser currentUser, String count) {
+        Situps situps = new Situps();
+        situps.setUser(currentUser);
+        situps.setCount(count);
+
+        situps.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Error While Saving sit ups", e);
+                }
+                Log.i(TAG, "Sit ups save was successfully");
+            }
+        });
+    }
+
+
+    public void saveHistory(ParseUser currentUser, String situpno, String name){
+        History history = new History();
+        history.setUser(currentUser);
+        history.setCount(situpno);
+        history.setNameOfExercise(name);
+
+        history.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Error While Saving sit ups history", e);
+                }
+                Log.i(TAG, "Sit up history save was successfully");
+                situpNo =0;
+                situpCount.setText("0");
+            }
+        });
     }
 }

@@ -6,13 +6,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.lifestyle.History;
+import com.example.lifestyle.Pushups;
 import com.example.lifestyle.R;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +30,8 @@ public class PushupsFragment extends Fragment {
     public TextView pushupCount;
     public Button pushupButton;
     public Button pushupDoneButton;
-    public int pushupNo;
+    public int pushupNo = 0;
+    private static final String TAG = "PushupsFragments";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,6 +98,45 @@ public class PushupsFragment extends Fragment {
         pushupDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                String count = String.valueOf(pushupNo);
+                saveHistory(currentUser, count, "Push Ups");
+                savePush(currentUser, count);
+
+            }
+        });
+    }
+
+    private void savePush(ParseUser currentUser, String count) {
+        Pushups pushups = new Pushups();
+        pushups.setUser(currentUser);
+        pushups.setCount(count);
+
+        pushups.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Error While Saving push ups", e);
+                }
+                Log.i(TAG, "Push ups save was successfully");
+            }
+        });
+    }
+
+    public void saveHistory(ParseUser currentUser, String pushupno, String name){
+        History history = new History();
+        history.setUser(currentUser);
+        history.setCount(pushupno);
+        history.setNameOfExercise(name);
+
+        history.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Error While Saving push ups history", e);
+                }
+                Log.i(TAG, "Push up history save was successfully");
+                pushupNo =0;
                 pushupCount.setText("0");
             }
         });
