@@ -2,11 +2,15 @@ package com.example.lifestyle.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.lifestyle.R;
 
@@ -16,6 +20,10 @@ import com.example.lifestyle.R;
  * create an instance of this fragment.
  */
 public class PushupsFragment extends Fragment {
+    public TextView pushupCount;
+    public Button pushupButton;
+    public Button pushupDoneButton;
+    public int pushupNo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +70,28 @@ public class PushupsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pushups, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        pushupCount = view.findViewById(R.id.pushupCount);
+        pushupButton = view.findViewById(R.id.pushupButton);
+        pushupDoneButton = view.findViewById(R.id.pushupDoneButton);
+        pushupNo = Integer.parseInt(pushupCount.getText().toString());
+        pushupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pushupNo++;
+                pushupCount.setText(String.valueOf(pushupNo));
+            }
+        });
+
+        pushupDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pushupCount.setText("0");
+            }
+        });
     }
 }
