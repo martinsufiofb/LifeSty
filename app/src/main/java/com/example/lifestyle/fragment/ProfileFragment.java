@@ -22,7 +22,10 @@ import com.example.lifestyle.ExercisesAdapter;
 import com.example.lifestyle.History;
 import com.example.lifestyle.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
+import com.example.lifestyle.Pushups;
 import com.example.lifestyle.R;
+import com.example.lifestyle.Situps;
+import com.example.lifestyle.Squats;
 import com.parse.FindCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -42,10 +45,19 @@ public class ProfileFragment extends Fragment {
     LinearLayout logout;
     String currentUserUsername;
     TextView profileUsername;
+    TextView secondCircle;
+    TextView firstCircle;
+    TextView thirdCircle;
+    int pushupsTotal;
+    int situpsTotal;
+    int squatsTotal;
 
     public static RecyclerView rvHistory;
     private HistoryAdapter adapter;
     private List<History> historyList;
+    private List<Pushups> pushupsList;
+    private List<Situps> situpsList;
+    private List<Squats> squatsList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -100,6 +112,10 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         currentUserUsername = ParseUser.getCurrentUser().getUsername();
         profileUsername = view.findViewById(R.id.tvProfileUsername);
+        firstCircle = view.findViewById(R.id.tv1);
+        secondCircle = view.findViewById(R.id.tv2);
+        thirdCircle = view.findViewById(R.id.tv3);
+
         profileUsername.setText(currentUserUsername);
 
         logout =  view.findViewById(R.id.LLlogout);
@@ -114,19 +130,105 @@ public class ProfileFragment extends Fragment {
         rvHistory = view.findViewById(R.id.rvHistory);
 
         historyList = new ArrayList<>();
-        adapter = new HistoryAdapter(getContext(), historyList);
+        pushupsList = new ArrayList<>();
+        situpsList = new ArrayList<>();
+        squatsList = new ArrayList<>();
 
+        adapter = new HistoryAdapter(getContext(), historyList);
 
         rvHistory.setAdapter(adapter);
         rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
 
         queryHistory();
+        queryPushups();
+        querySitups();
+        querySquats();
+
+
     }
+
+
+    private void querySquats() {
+        ParseQuery<Squats> query = ParseQuery.getQuery(Squats.class);
+        query.include(Squats.KEY_USER);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<Squats>() {
+            @Override
+            public void done(List<Squats> squats, ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Issue getting squats", e);
+                    return;
+                }
+
+                squatsList.addAll(squats);
+                for(int i = 0; i<squatsList.size(); i++){
+                    Log.i(TAG,"TOTALRUN: "+squatsTotal);
+                    squatsTotal+= Integer.parseInt(squatsList.get(i).getCount());
+                }
+                Log.i(TAG,"TOTAL: "+squatsTotal);
+                secondCircle.setText(String.valueOf(squatsTotal));
+            }
+        });
+
+    }
+
+    private void querySitups() {
+        ParseQuery<Situps> query = ParseQuery.getQuery(Situps.class);
+        query.include(Situps.KEY_USER);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<Situps>() {
+            @Override
+            public void done(List<Situps> situps, ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Issue getting situps", e);
+                    return;
+                }
+
+                situpsList.addAll(situps);
+
+                for(int i = 0; i<situpsList.size(); i++){
+                    situpsTotal+= Integer.parseInt(situpsList.get(i).getCount());
+                }
+                firstCircle.setText(String.valueOf(situpsTotal));
+
+            }
+        });
+
+    }
+
+    private void queryPushups() {
+        ParseQuery<Pushups> query = ParseQuery.getQuery(Pushups.class);
+        query.include(Pushups.KEY_USER);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<Pushups>() {
+            @Override
+            public void done(List<Pushups> pushups, ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Issue getting pushups", e);
+                    return;
+                }
+                pushupsList.addAll(pushups);
+
+                for(int i = 0; i<pushupsList.size(); i++){
+                    pushupsTotal+= Integer.parseInt(pushupsList.get(i).getCount());
+                }
+
+                thirdCircle.setText(String.valueOf(pushupsTotal));
+
+            }
+        });
+
+    }
+
 
     private void queryHistory() {
         ParseQuery<History> query = ParseQuery.getQuery(History.class);
         query.include(History.KEY_USER);
         query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.addDescendingOrder("createdAt");
 
         query.findInBackground(new FindCallback<History>() {
             @Override
