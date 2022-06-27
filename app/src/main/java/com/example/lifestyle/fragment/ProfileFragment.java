@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +17,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lifestyle.Exercise;
+import com.example.lifestyle.ExercisesAdapter;
+import com.example.lifestyle.History;
+import com.example.lifestyle.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
 import com.example.lifestyle.R;
+import com.parse.FindCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +42,10 @@ public class ProfileFragment extends Fragment {
     LinearLayout logout;
     String currentUserUsername;
     TextView profileUsername;
+
+    public static RecyclerView rvHistory;
+    private HistoryAdapter adapter;
+    private List<History> historyList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,6 +109,36 @@ public class ProfileFragment extends Fragment {
                 logout();
             }
 
+        });
+
+        rvHistory = view.findViewById(R.id.rvHistory);
+
+        historyList = new ArrayList<>();
+        adapter = new HistoryAdapter(getContext(), historyList);
+
+
+        rvHistory.setAdapter(adapter);
+        rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        queryHistory();
+    }
+
+    private void queryHistory() {
+        ParseQuery<History> query = ParseQuery.getQuery(History.class);
+        query.include(History.KEY_USER);
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+
+        query.findInBackground(new FindCallback<History>() {
+            @Override
+            public void done(List<History> history, ParseException e) {
+                if (e!=null){
+                    Log.e(TAG, "Issue getting exercises", e);
+                    return;
+                }
+
+                historyList.addAll(history);
+                adapter.notifyDataSetChanged();
+            }
         });
     }
 
