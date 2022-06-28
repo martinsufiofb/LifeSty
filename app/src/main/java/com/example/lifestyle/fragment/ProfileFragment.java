@@ -33,7 +33,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +51,9 @@ public class ProfileFragment extends Fragment {
     TextView secondCircle;
     TextView firstCircle;
     TextView thirdCircle;
+    TextView secondCircleName;
+    TextView firstCircleName;
+    TextView thirdCircleName;
     int pushupsTotal;
     int situpsTotal;
     int squatsTotal;
@@ -115,6 +121,9 @@ public class ProfileFragment extends Fragment {
         firstCircle = view.findViewById(R.id.tv1);
         secondCircle = view.findViewById(R.id.tv2);
         thirdCircle = view.findViewById(R.id.tv3);
+        firstCircleName = view.findViewById(R.id.tvName1);
+        secondCircleName = view.findViewById(R.id.tvName2);
+        thirdCircleName = view.findViewById(R.id.tvName3);
 
         profileUsername.setText(currentUserUsername);
 
@@ -165,7 +174,7 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i<squatsList.size(); i++){
                     squatsTotal+= Integer.parseInt(squatsList.get(i).getCount());
                 }
-                secondCircle.setText(String.valueOf(squatsTotal));
+                isdone();
             }
         });
 
@@ -189,12 +198,14 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i<situpsList.size(); i++){
                     situpsTotal+= Integer.parseInt(situpsList.get(i).getCount());
                 }
-                firstCircle.setText(String.valueOf(situpsTotal));
+                isdone();
+
 
             }
         });
 
     }
+
 
     private void queryPushups() {
         ParseQuery<Pushups> query = ParseQuery.getQuery(Pushups.class);
@@ -214,10 +225,82 @@ public class ProfileFragment extends Fragment {
                     pushupsTotal+= Integer.parseInt(pushupsList.get(i).getCount());
                 }
 
-                thirdCircle.setText(String.valueOf(pushupsTotal));
+                isdone();
 
             }
         });
+
+    }
+
+    private void isdone() {
+
+
+        if(situpsTotal>squatsTotal && situpsTotal>pushupsTotal){
+            firstCircle.setText(String.valueOf(situpsTotal));
+            firstCircleName.setText("Sit Ups");
+            if(squatsTotal>pushupsTotal){
+                secondCircle.setText(String.valueOf(squatsTotal));
+                secondCircleName.setText("Squats");
+                thirdCircle.setText(String.valueOf(pushupsTotal));
+                thirdCircleName.setText("Push Ups");
+            }else if(pushupsTotal>squatsTotal){
+                thirdCircle.setText(String.valueOf(squatsTotal));
+                thirdCircleName.setText("Squats");
+                secondCircle.setText(String.valueOf(pushupsTotal));
+                secondCircleName.setText("Push Ups");
+            }else {
+                thirdCircle.setText(String.valueOf(squatsTotal));
+                thirdCircleName.setText("Squats");
+                secondCircle.setText(String.valueOf(pushupsTotal));
+                secondCircleName.setText("Push Ups");
+            }
+        }else if(squatsTotal>situpsTotal&&squatsTotal>pushupsTotal){
+            firstCircle.setText(String.valueOf(squatsTotal));
+            firstCircleName.setText("Squats");
+            if(situpsTotal>pushupsTotal){
+                secondCircle.setText(String.valueOf(situpsTotal));
+                secondCircleName.setText("Sit Ups");
+                thirdCircle.setText(String.valueOf(pushupsTotal));
+                thirdCircleName.setText("Push Ups");
+            }else if(pushupsTotal>situpsTotal){
+                thirdCircle.setText(String.valueOf(situpsTotal));
+                thirdCircleName.setText("Sit Ups");
+                secondCircle.setText(String.valueOf(pushupsTotal));
+                secondCircleName.setText("Push Ups");
+            }else{
+                thirdCircle.setText(String.valueOf(situpsTotal));
+                thirdCircleName.setText("Sit Ups");
+                secondCircle.setText(String.valueOf(pushupsTotal));
+                secondCircleName.setText("Push Ups");
+            }
+        }else if(pushupsTotal>situpsTotal&&pushupsTotal>squatsTotal){
+            firstCircle.setText(String.valueOf(pushupsTotal));
+            firstCircleName.setText("Push Ups");
+            if(situpsTotal>squatsTotal){
+                secondCircle.setText(String.valueOf(situpsTotal));
+                secondCircleName.setText("Sit Ups");
+                thirdCircle.setText(String.valueOf(squatsTotal));
+                thirdCircleName.setText("Squats");
+            }else if (squatsTotal>situpsTotal){
+                secondCircle.setText(String.valueOf(squatsTotal));
+                secondCircleName.setText("Squats");
+                thirdCircle.setText(String.valueOf(situpsTotal));
+                thirdCircleName.setText("Sit Ups");
+            }else{
+                secondCircle.setText(String.valueOf(situpsTotal));
+                secondCircleName.setText("Sit Ups");
+                thirdCircle.setText(String.valueOf(squatsTotal));
+                thirdCircleName.setText("Squats");
+            }
+        }else{
+            firstCircle.setText(String.valueOf(pushupsTotal));
+            firstCircleName.setText("Push Ups");
+            secondCircle.setText(String.valueOf(situpsTotal));
+            secondCircleName.setText("Sit Ups");
+            thirdCircle.setText(String.valueOf(squatsTotal));
+            thirdCircleName.setText("Squats");
+        }
+
 
     }
 
