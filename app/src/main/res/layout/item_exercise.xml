@@ -42,7 +42,6 @@
             android:padding="5dp"
             android:text="Description"/>
     </androidx.cardview.widget.CardView>
-
 </LinearLayout>
 
 

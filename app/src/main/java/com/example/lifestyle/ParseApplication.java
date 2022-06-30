@@ -6,11 +6,9 @@ import com.parse.Parse;
 import com.parse.ParseObject;
 
 public class ParseApplication extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
-
         ParseObject.registerSubclass(Exercise.class);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(History.class);

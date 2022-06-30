@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ViewHolder> {
-
     private Context context;
     private List<Exercise> exercises;
 
@@ -44,7 +43,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
         private TextView tvTitle;
         private TextView tvDescription;
         private ImageView ivImage;
@@ -55,7 +53,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             tvDescription = itemView.findViewById(R.id.tvDescriptionExercise);
             ivImage = itemView.findViewById(R.id.ivImageExercise);
             itemView.setOnClickListener(this);
-
         }
 
         public void bind(Exercise exercise) {
@@ -71,9 +68,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
                 Intent intent = new Intent(context, ExercisesCounter.class);
                 intent.putExtra("page",position);
                 context.startActivity(intent);
-
             }
         }
     }
-
 }

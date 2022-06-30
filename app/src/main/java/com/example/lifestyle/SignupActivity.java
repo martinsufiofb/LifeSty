@@ -23,12 +23,10 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
         etusername = findViewById(R.id.etUsername1);
         etpassword =findViewById(R.id.etPassword1);
         btnButton =findViewById(R.id.btnBotton1);
         hasAccount = findViewById(R.id.tvHasAccount);
-
         hasAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,8 +43,6 @@ public class SignupActivity extends AppCompatActivity {
                 signup(username, password);
             }
         });
-
-
     }
 
     private void signup(String username, String password) {
@@ -54,7 +50,6 @@ public class SignupActivity extends AppCompatActivity {
 
         user.setUsername(username);
         user.setPassword(password);
-
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {

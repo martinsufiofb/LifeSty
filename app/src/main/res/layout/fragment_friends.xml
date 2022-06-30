@@ -6,11 +6,9 @@
     tools:context=".fragment.FriendsFragment"
     android:background="@color/purple_200">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Friends"
         android:gravity="center"/>
-
 </RelativeLayout>

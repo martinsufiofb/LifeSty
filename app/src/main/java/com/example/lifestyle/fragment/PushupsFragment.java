@@ -21,24 +21,14 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PushupsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PushupsFragment extends Fragment {
     public TextView pushupCount;
     public Button pushupButton;
     public Button pushupDoneButton;
     public int pushupNo = 0;
     private static final String TAG = "PushupsFragments";
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -46,15 +36,6 @@ public class PushupsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PushupsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PushupsFragment newInstance(String param1, String param2) {
         PushupsFragment fragment = new PushupsFragment();
         Bundle args = new Bundle();
@@ -76,7 +57,6 @@ public class PushupsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pushups, container, false);
     }
 
@@ -102,7 +82,6 @@ public class PushupsFragment extends Fragment {
                 String count = String.valueOf(pushupNo);
                 saveHistory(currentUser, count, "Push Ups");
                 savePush(currentUser, count);
-
             }
         });
     }
@@ -111,7 +90,6 @@ public class PushupsFragment extends Fragment {
         Pushups pushups = new Pushups();
         pushups.setUser(currentUser);
         pushups.setCount(count);
-
         pushups.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -128,7 +106,6 @@ public class PushupsFragment extends Fragment {
         history.setUser(currentUser);
         history.setCount(pushupno);
         history.setNameOfExercise(name);
-
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

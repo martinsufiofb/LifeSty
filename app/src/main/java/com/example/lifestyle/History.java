@@ -7,11 +7,9 @@ import com.parse.ParseUser;
 
 @ParseClassName("History")
 public class History extends ParseObject {
-
     public static final String KEY_COUNT = "count";
     public static final String KEY_NAMEOFEXERCISE = "nameOfExercise";
     public static final String KEY_USER = "user";
-
 
     public String getCount(){
         return getString(KEY_COUNT);

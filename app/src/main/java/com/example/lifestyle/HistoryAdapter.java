@@ -23,8 +23,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         this.historyList = historyList;
     }
 
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +42,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
         public TextView date;
         public TextView nameOfExercise;
         public TextView user;
@@ -52,7 +49,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             date = itemView.findViewById(R.id.tvDate);
             nameOfExercise = itemView.findViewById(R.id.tvnameOfExerciseH);
             user = itemView.findViewById(R.id.tvUserH);
@@ -64,9 +60,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
             date.setText(history.getCreatedAt().toString().substring(0,10));
             nameOfExercise.setText(history.getNameOfExercise());
             count.setText(history.getCount());
-
         }
     }
-
-
 }

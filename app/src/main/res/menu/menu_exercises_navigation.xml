@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/action_push_ups"
         android:icon="@drawable/ic_push_ups"
         android:title="Push ups"
         app:showAsAction="always" />
-
     <item
         android:id="@+id/action_sit_ups"
         android:icon="@drawable/ic_situps"
@@ -17,6 +15,4 @@
         android:icon="@drawable/ic_squat"
         android:title="Squats"
         app:showAsAction="always" />
-
-
 </menu>

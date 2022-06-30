@@ -27,7 +27,6 @@
         android:textColor="@color/black"
         android:layout_marginTop="30dp"/>
 
-
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
@@ -45,7 +44,6 @@
         android:text="Password"
         android:textColor="@color/black"
         android:layout_marginTop="30dp"/>
-
 
     <EditText
         android:id="@+id/etPassword"
@@ -72,6 +70,4 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="DON'T HAVE AN ACCOUNT?" />
-
-
 </LinearLayout>

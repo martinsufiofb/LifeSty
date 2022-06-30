@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         if (ParseUser.getCurrentUser()!=null){
             goToMainActivity();
         }
@@ -35,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnBotton);
         tvRegister = findViewById(R.id.tvRegister);
-
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-        
     }
 
     private void loginUser(String username, String password) {
@@ -74,6 +71,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
-
-
 }

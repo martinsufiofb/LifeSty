@@ -5,7 +5,6 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 @ParseClassName("Exercises")
-
 public class Exercise extends ParseObject {
     public static final  String KEY_TITLE = "nameOfExercise";
     public static final  String KEY_DESCRIPTION = "description";
