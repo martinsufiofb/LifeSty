@@ -13,14 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.lifestyle.Exercise;
-import com.example.lifestyle.ExercisesAdapter;
 import com.example.lifestyle.History;
 import com.example.lifestyle.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
@@ -228,8 +225,8 @@ public class ProfileFragment extends Fragment {
         hm.put("Sit ups", situpsTotal);
         hm.put("Squats", squatsTotal);
         int i = 0;
-        Map<String, Integer> hm1 = sortByValue(hm);
-        for (Map.Entry<String, Integer> en : hm1.entrySet()) {
+        Map<String, Integer> hmSorted = sortByValue(hm);
+        for (Map.Entry<String, Integer> en : hmSorted.entrySet()) {
             l1.get(i).setText(String.valueOf(en.getValue()));
             l2.get(i).setText(String.valueOf(en.getKey()));
             i++;
