@@ -17,10 +17,10 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private static String TAG = "LoginActivity";
-    private EditText etUsername;
-    private EditText etPassword;
-    private Button btnLogin;
-    private TextView tvRegister;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private Button loginButton;
+    private TextView noAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class LoginActivity extends AppCompatActivity {
             goToMainActivity();
         }
         
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnBotton);
-        tvRegister = findViewById(R.id.tvRegister);
-        tvRegister.setOnClickListener(new View.OnClickListener() {
+        usernameInput = findViewById(R.id.etLoginUsername);
+        passwordInput = findViewById(R.id.etLoginPassword);
+        loginButton = findViewById(R.id.btnLoginBotton);
+        noAccount = findViewById(R.id.tvRegister);
+        noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),SignupActivity.class);
@@ -42,11 +42,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etUsername.getText().toString();
-                String password = etPassword.getText().toString();
+                String username = usernameInput.getText().toString();
+                String password = passwordInput.getText().toString();
                 loginUser(username, password);
             }
         });

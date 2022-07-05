@@ -28,7 +28,7 @@
         android:layout_marginTop="30dp"/>
 
     <EditText
-        android:id="@+id/etUsername1"
+        android:id="@+id/etSignupUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="10dp"
@@ -46,7 +46,7 @@
         android:layout_marginTop="30dp"/>
 
     <EditText
-        android:id="@+id/etPassword1"
+        android:id="@+id/etSignupPassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="10dp"
@@ -57,7 +57,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnBotton1"
+        android:id="@+id/btnSignupBotton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"

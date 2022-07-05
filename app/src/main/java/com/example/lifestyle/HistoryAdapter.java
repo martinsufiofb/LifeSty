@@ -9,9 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -46,18 +43,20 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public TextView nameOfExercise;
         public TextView user;
         public TextView count;
+        public String completedDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.tvDate);
-            nameOfExercise = itemView.findViewById(R.id.tvnameOfExerciseH);
-            user = itemView.findViewById(R.id.tvUserH);
-            count = itemView.findViewById(R.id.tvCountH);
+            nameOfExercise = itemView.findViewById(R.id.tvnameOfExercise);
+            user = itemView.findViewById(R.id.tvUser);
+            count = itemView.findViewById(R.id.tvCount);
         }
 
         public void bind(History history) {
             user.setText(history.getUser().getUsername());
-            date.setText(history.getCreatedAt().toString().substring(0,10));
+            completedDate = history.getCreatedAt().toString().substring(0,10);
+            date.setText(completedDate);
             nameOfExercise.setText(history.getNameOfExercise());
             count.setText(history.getCount());
         }

@@ -12,35 +12,39 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvUserH"
+        android:id="@+id/tvUser"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvnameOfExerciseH"
+        android:id="@+id/tvnameOfExercise"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tvUserH"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/tvUser"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCountH"
+        android:id="@+id/tvCount"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/tvnameOfExerciseH"
+        app:layout_constraintStart_toEndOf="@+id/tvnameOfExercise"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,10 +63,10 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            if(position!=RecyclerView.NO_POSITION){
+            int exerciseClicked = getAdapterPosition();
+            if(exerciseClicked !=RecyclerView.NO_POSITION){
                 Intent intent = new Intent(context, ExercisesCounter.class);
-                intent.putExtra("page",position);
+                intent.putExtra("page", exerciseClicked);
                 context.startActivity(intent);
             }
         }

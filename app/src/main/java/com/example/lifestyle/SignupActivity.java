@@ -14,18 +14,18 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupActivity extends AppCompatActivity {
-    private EditText etusername;
-    private EditText etpassword;
-    private Button btnButton;
+    private EditText UsernameInput;
+    private EditText PasswordInput;
+    private Button SignupButton;
     private TextView hasAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        etusername = findViewById(R.id.etUsername1);
-        etpassword =findViewById(R.id.etPassword1);
-        btnButton =findViewById(R.id.btnBotton1);
+        UsernameInput = findViewById(R.id.etSignupUsername);
+        PasswordInput =findViewById(R.id.etSignupPassword);
+        SignupButton =findViewById(R.id.btnSignupBotton);
         hasAccount = findViewById(R.id.tvHasAccount);
         hasAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,11 +35,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        btnButton.setOnClickListener(new View.OnClickListener() {
+        SignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = etusername.getText().toString();
-                String password = etpassword.getText().toString();
+                String username = UsernameInput.getText().toString();
+                String password = PasswordInput.getText().toString();
                 signup(username, password);
             }
         });
@@ -47,7 +47,6 @@ public class SignupActivity extends AppCompatActivity {
 
     private void signup(String username, String password) {
         ParseUser user = new ParseUser();
-
         user.setUsername(username);
         user.setPassword(password);
         user.signUpInBackground(new SignUpCallback() {
