@@ -1,40 +1,41 @@
 package com.example.lifestyle;
 
 import androidx.annotation.NonNull;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.fragment.app.Fragment;
-
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
-
-import android.os.Handler;
+import java.util.Map.Entry;
 import android.view.MenuItem;
-
 import android.view.View;
-
-
 import com.example.lifestyle.fragment.FriendsFragment;
 import com.example.lifestyle.fragment.HomeFragment;
 import com.example.lifestyle.fragment.ProfileFragment;
 import com.example.lifestyle.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private static final int NUM_PAGES=4;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
-    boolean home;
+    HashMap<Integer, Integer> positionOfPages = new HashMap<>();
+    HashMap<Integer, Fragment> fragments = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        home = false;
+        positionOfPages.put(0, R.id.action_home);
+        positionOfPages.put(1, R.id.action_search);
+        positionOfPages.put(2, R.id.action_friends);
+        positionOfPages.put(3, R.id.action_profile);
+        fragments.put(0, new HomeFragment());
+        fragments.put(1, new SearchFragment());
+        fragments.put(2, new FriendsFragment());
+        fragments.put(3, new ProfileFragment());
         viewPager2 = findViewById(R.id.VP);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         pageAdapter = new ScreenSlidePageAdapter(this);
@@ -51,15 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
-                    bottomNavigationView.setSelectedItemId(R.id.action_home);
-                }else if(position==1){
-                    bottomNavigationView.setSelectedItemId(R.id.action_search);
-                }else if(position==2){
-                    bottomNavigationView.setSelectedItemId(R.id.action_friends);
-                } else if(position==3){
-                    bottomNavigationView.setSelectedItemId(R.id.action_profile);
-                }
+                int selectedPage = positionOfPages.get(position);
+                bottomNavigationView.setSelectedItemId(selectedPage);
             }
 
             @Override
@@ -73,21 +67,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.action_home && home!=true ){
-                    viewPager2.setCurrentItem(0);
-                    home = true;
-                    return true;
-                }else if(item.getItemId()==R.id.action_search){
-                    viewPager2.setCurrentItem(1);
-                    home = false;
-                }else if(item.getItemId()==R.id.action_friends){
-                    viewPager2.setCurrentItem(2);
-                    home = false;
-                }else if(item.getItemId()==R.id.action_profile){
-                    viewPager2.setCurrentItem(3);
-                    home = false;
-                }else if(home==true){
-                    HomeFragment.rvExercises.smoothScrollToPosition(0);
+                for(Entry<Integer, Integer> entry: positionOfPages.entrySet()) {
+                    if(entry.getValue() == item.getItemId()) {
+                       viewPager2.setCurrentItem(entry.getKey());
+                       return true;
+                    }
                 }
                 return true;
             }
@@ -100,24 +84,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            Fragment fragment;
-            switch (position) {
-                case 0:
-                    fragment = new HomeFragment();
-                    break;
-                case 1:
-                    fragment = new SearchFragment();
-                    break;
-                case 2:
-                    fragment = new FriendsFragment();
-                    break;
-                case 3:
-                    fragment = new ProfileFragment();
-                    break;
-                default:
-                    return null;
-            }
-            return fragment;
+            return fragments.get(position);
         }
 
         @Override
@@ -133,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         public void transformPage(View view, float position) {
             int pageWidth = view.getWidth();
             int pageHeight = view.getHeight();
-
             if (position < -1) {
                 view.setAlpha(0f);
             } else if (position <= 1) {

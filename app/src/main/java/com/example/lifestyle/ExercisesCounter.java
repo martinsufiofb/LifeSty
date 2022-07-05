@@ -8,23 +8,23 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.lifestyle.fragment.FriendsFragment;
-import com.example.lifestyle.fragment.HomeFragment;
-import com.example.lifestyle.fragment.ProfileFragment;
 import com.example.lifestyle.fragment.PushupsFragment;
-import com.example.lifestyle.fragment.SearchFragment;
 import com.example.lifestyle.fragment.SitupsFragment;
 import com.example.lifestyle.fragment.SquatsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ExercisesCounter extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView2;
+    private BottomNavigationView exercisesCounterBottomNavigationView;
     private static final int NUM_PAGES=3;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
+    HashMap<Integer, Integer> positionOfPages = new HashMap<>();
+    HashMap<Integer, Fragment> fragments = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,17 @@ public class ExercisesCounter extends AppCompatActivity {
         Intent intent = getIntent();
         int page = intent.getIntExtra("page",0);
         viewPager2 = findViewById(R.id.VP2);
-        bottomNavigationView2 = findViewById(R.id.bottom_navigation2);
+        exercisesCounterBottomNavigationView = findViewById(R.id.bottom_navigation2);
         pageAdapter = new ScreenSlidePageAdapter(this);
         viewPager2.setAdapter(pageAdapter);
         setBottomNavigation();
         setViewPagerListener();
+        positionOfPages.put(0, R.id.action_push_ups);
+        positionOfPages.put(1, R.id.action_sit_ups);
+        positionOfPages.put(2, R.id.action_squats);
+        fragments.put(0, new PushupsFragment());
+        fragments.put(1, new SitupsFragment());
+        fragments.put(2, new SquatsFragment());
         viewPager2.setCurrentItem(page);
     }
 
@@ -49,13 +55,8 @@ public class ExercisesCounter extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
-                    bottomNavigationView2.setSelectedItemId(R.id.action_push_ups);
-                }else if(position==1){
-                    bottomNavigationView2.setSelectedItemId(R.id.action_sit_ups);
-                }else if(position==2){
-                    bottomNavigationView2.setSelectedItemId(R.id.action_squats);
-                }
+                int selectedPage = positionOfPages.get(position);
+                exercisesCounterBottomNavigationView.setSelectedItemId(selectedPage);
             }
 
             @Override
@@ -64,15 +65,14 @@ public class ExercisesCounter extends AppCompatActivity {
     }
 
     private void setBottomNavigation() {
-        bottomNavigationView2.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        exercisesCounterBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.action_push_ups ){
-                    viewPager2.setCurrentItem(0);
-                }else if(item.getItemId()==R.id.action_sit_ups){
-                    viewPager2.setCurrentItem(1);
-                }else if(item.getItemId()==R.id.action_squats){
-                    viewPager2.setCurrentItem(2);
+                for(Map.Entry<Integer, Integer> entry: positionOfPages.entrySet()) {
+                    if(entry.getValue() == item.getItemId()) {
+                        viewPager2.setCurrentItem(entry.getKey());
+                        return true;
+                    }
                 }
                 return true;
             }
@@ -85,21 +85,7 @@ public class ExercisesCounter extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            Fragment fragment;
-            switch (position) {
-                case 0:
-                    fragment = new PushupsFragment();
-                    break;
-                case 1:
-                    fragment = new SitupsFragment();
-                    break;
-                case 2:
-                    fragment = new SquatsFragment();
-                    break;
-                default:
-                    return null;
-            }
-            return fragment;
+            return fragments.get(position);
         }
 
         @Override
