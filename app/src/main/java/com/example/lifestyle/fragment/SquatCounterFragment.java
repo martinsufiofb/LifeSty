@@ -33,7 +33,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.pose.Pose;
+import com.google.mlkit.vision.pose.PoseDetection;
+import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseLandmark;
+import com.google.mlkit.vision.pose.accurate.AccuratePoseDetectorOptions;
+import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
 
 import java.util.concurrent.ExecutionException;
 
@@ -46,6 +50,7 @@ public class SquatCounterFragment extends Fragment {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageView flipCameraLens;
     private int lensFacing = CameraSelector.LENS_FACING_FRONT;
+    PoseDetector poseDetector;
 
     public SquatCounterFragment() {
         // Required empty public constructor
@@ -113,6 +118,13 @@ public class SquatCounterFragment extends Fragment {
                 }
             }
         }, ContextCompat.getMainExecutor(getContext()));
+
+        PoseDetectorOptions options =
+                new PoseDetectorOptions.Builder()
+                        .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
+                        .build();
+
+        poseDetector = PoseDetection.getClient(options);
     }
 
     private void bindImageAnalysis(ProcessCameraProvider cameraProvider) {
@@ -124,7 +136,65 @@ public class SquatCounterFragment extends Fragment {
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(getContext()), new ImageAnalysis.Analyzer() {
             @Override
             public void analyze(@NonNull ImageProxy imageProxy) {
-                imageProxy.close();
+                @SuppressLint("UnsafeOptInUsageError") Image mediaImage = imageProxy.getImage();
+                if (mediaImage != null) {
+                    InputImage image = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
+                    Task<Pose> pose = poseDetector.process(image)
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<Pose>() {
+                                        @Override
+                                        public void onSuccess(Pose pose) {
+                                            PoseLandmark leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER);
+                                            PoseLandmark rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER);
+                                            PoseLandmark leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW);
+                                            PoseLandmark rightElbow = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW);
+                                            PoseLandmark leftWrist = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST);
+                                            PoseLandmark rightWrist = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST);
+                                            PoseLandmark leftHip = pose.getPoseLandmark(PoseLandmark.LEFT_HIP);
+                                            PoseLandmark rightHip = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP);
+                                            PoseLandmark leftKnee = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE);
+                                            PoseLandmark rightKnee = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE);
+                                            PoseLandmark leftAnkle = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE);
+                                            PoseLandmark rightAnkle = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE);
+                                            PoseLandmark leftPinky = pose.getPoseLandmark(PoseLandmark.LEFT_PINKY);
+                                            PoseLandmark rightPinky = pose.getPoseLandmark(PoseLandmark.RIGHT_PINKY);
+                                            PoseLandmark leftIndex = pose.getPoseLandmark(PoseLandmark.LEFT_INDEX);
+                                            PoseLandmark rightIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_INDEX);
+                                            PoseLandmark leftThumb = pose.getPoseLandmark(PoseLandmark.LEFT_THUMB);
+                                            PoseLandmark rightThumb = pose.getPoseLandmark(PoseLandmark.RIGHT_THUMB);
+                                            PoseLandmark leftHeel = pose.getPoseLandmark(PoseLandmark.LEFT_HEEL);
+                                            PoseLandmark rightHeel = pose.getPoseLandmark(PoseLandmark.RIGHT_HEEL);
+                                            PoseLandmark leftFootIndex = pose.getPoseLandmark(PoseLandmark.LEFT_FOOT_INDEX);
+                                            PoseLandmark rightFootIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_FOOT_INDEX);
+                                            PoseLandmark nose = pose.getPoseLandmark(PoseLandmark.NOSE);
+                                            PoseLandmark leftEyeInner = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_INNER);
+                                            PoseLandmark leftEye = pose.getPoseLandmark(PoseLandmark.LEFT_EYE);
+                                            PoseLandmark leftEyeOuter = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_OUTER);
+                                            PoseLandmark rightEyeInner = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_INNER);
+                                            PoseLandmark rightEye = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE);
+                                            PoseLandmark rightEyeOuter = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_OUTER);
+                                            PoseLandmark leftEar = pose.getPoseLandmark(PoseLandmark.LEFT_EAR);
+                                            PoseLandmark rightEar = pose.getPoseLandmark(PoseLandmark.RIGHT_EAR);
+                                            PoseLandmark leftMouth = pose.getPoseLandmark(PoseLandmark.LEFT_MOUTH);
+                                            PoseLandmark rightMouth = pose.getPoseLandmark(PoseLandmark.RIGHT_MOUTH);
+                                            if (nose != null){
+                                                Log.i("Check", "Nose "+ nose.getPosition());
+                                            }
+                                        }
+                                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i("Check","Not detected");
+                                }
+                            }).addOnCompleteListener(new OnCompleteListener<Pose>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Pose> task) {
+                                    mediaImage.close();
+                                    imageProxy.close();
+                                }
+                            });
+                }
             }
         });
         cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
