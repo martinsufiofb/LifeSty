@@ -1,5 +1,6 @@
 package com.example.lifestyle.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.lifestyle.CameraActivity;
 import com.example.lifestyle.History;
 import com.example.lifestyle.Pushups;
 import com.example.lifestyle.R;
@@ -70,8 +72,10 @@ public class PushupsFragment extends Fragment {
         pushupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pushupNo++;
-                pushupCount.setText(String.valueOf(pushupNo));
+                int exerciseCliked = 1;
+                Intent intent = new Intent(getContext(), CameraActivity.class);
+                intent.putExtra("exerciseClicked", exerciseCliked);
+                startActivity(intent);
             }
         });
 
