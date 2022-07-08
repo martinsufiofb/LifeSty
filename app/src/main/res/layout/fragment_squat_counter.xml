@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.SquatCounterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+    </androidx.camera.view.PreviewView>
 
-</FrameLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnSquatsCounterDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="70dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/button"
+        android:layout_marginBottom="10dp"
+        android:text="Done" />
+
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/flip_camera_background"
+        android:layout_marginRight="5dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivSwitchlens"
+            android:src="@drawable/flip"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:text="Flip" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/radius"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tvSquatsCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="100dp"
+            android:textColor="@color/white"
+            android:text="0" />
+    </FrameLayout>
+
+</RelativeLayout>

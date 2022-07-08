@@ -1,9 +1,13 @@
 package com.example.lifestyle.fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +35,8 @@ public class HomeFragment extends Fragment {
     public static RecyclerView rvExercises;
     private ExercisesAdapter adapter;
     private List<Exercise> allExercises;
+    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};;
+    private static final int CAMERA_REQUEST_CODE = 10;
     private String mParam1;
     private String mParam2;
 
@@ -70,6 +76,25 @@ public class HomeFragment extends Fragment {
         rvExercises.setAdapter(adapter);
         rvExercises.setLayoutManager(new LinearLayoutManager(getContext()));
         queryExercises();
+        if (!(hasCameraPermission())) {
+            Log.i("CAMERA", "ENTERED");
+            requestPermission();
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                CAMERA_PERMISSION,
+                CAMERA_REQUEST_CODE
+        );
+    }
+
+    private boolean hasCameraPermission() {
+        return ContextCompat.checkSelfPermission(
+                getContext(),
+                Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void queryExercises() {
