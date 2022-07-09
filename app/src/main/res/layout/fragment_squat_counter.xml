@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SquatCounterFragment">
 
     <androidx.camera.view.PreviewView
@@ -11,47 +12,15 @@
         android:layout_height="match_parent">
     </androidx.camera.view.PreviewView>
 
-    <Button
-        android:layout_alignParentBottom="true"
-        android:id="@+id/btnSquatsCounterDone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="70dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/button"
-        android:layout_marginBottom="10dp"
-        android:text="Done" />
-
-
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/flip_camera_background"
-        android:layout_marginRight="5dp"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/ivSwitchlens"
-            android:src="@drawable/flip"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:text="Flip" />
-
-    </FrameLayout>
-
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/radius"
+        android:alpha="0.6"
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/tvSquatsCounter"
+            android:id="@+id/tvNoOfSquats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="100dp"
@@ -59,4 +28,78 @@
             android:text="0" />
     </FrameLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/warningBackground"
+        android:layout_width="400dp"
+        android:layout_height="30dp"
+        app:cardCornerRadius="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_centerInParent="true"
+        android:alpha="0.3"
+        app:cardBackgroundColor="@color/purple_700"/>
+
+    <TextView
+        android:id="@+id/warningText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Make sure your whole body is in the camera"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="@color/white"
+        android:translationZ="3dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/black"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.3"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/squatsCounterDoneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#007500"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            app:cardCornerRadius="70dp"
+            android:layout_marginBottom="20dp"
+            android:text="Done">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_done"/>
+        </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/squatsCounterCancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#ff0000"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        app:cardCornerRadius="70dp"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp"
+        android:text="Done">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_close"/>
+    </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/ivSwitchlens"
+            android:src="@drawable/ic_baseline_flip_camera_ios_24"
+            android:layout_width="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_height="50dp"/>
 </RelativeLayout>
