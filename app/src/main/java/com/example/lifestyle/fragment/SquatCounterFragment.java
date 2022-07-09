@@ -22,8 +22,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.lifestyle.LineView;
 import com.example.lifestyle.MainActivity;
 import com.example.lifestyle.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +40,8 @@ import com.google.mlkit.vision.pose.PoseDetection;
 import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseLandmark;
 import com.google.mlkit.vision.pose.accurate.AccuratePoseDetectorOptions;
-import com.google.mlkit.vision.pose.defaults.PoseDetectorOptions;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class SquatCounterFragment extends Fragment {
@@ -49,6 +52,10 @@ public class SquatCounterFragment extends Fragment {
     private PreviewView previewView;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageView flipCameraLens;
+    private TextView numberOfSquats;
+    private Integer noOfSquats;
+    private TextView warningText;
+    private FrameLayout warningBackground;
     private int lensFacing = CameraSelector.LENS_FACING_FRONT;
     PoseDetector poseDetector;
 
@@ -85,6 +92,9 @@ public class SquatCounterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         flipCameraLens = view.findViewById(R.id.ivSwitchlens);
         previewView = view.findViewById(R.id.previewView);
+        numberOfSquats = view.findViewById(R.id.tvNoOfSquats);
+        warningBackground = view.findViewById(R.id.warningBackground);
+        warningText = view.findViewById(R.id.warningText);
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
         flipCameraLens.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +129,9 @@ public class SquatCounterFragment extends Fragment {
             }
         }, ContextCompat.getMainExecutor(getContext()));
 
-        PoseDetectorOptions options =
-                new PoseDetectorOptions.Builder()
-                        .setDetectorMode(PoseDetectorOptions.STREAM_MODE)
+        AccuratePoseDetectorOptions options =
+                new AccuratePoseDetectorOptions.Builder()
+                        .setDetectorMode(AccuratePoseDetectorOptions.STREAM_MODE)
                         .build();
 
         poseDetector = PoseDetection.getClient(options);
@@ -132,7 +142,7 @@ public class SquatCounterFragment extends Fragment {
         Preview preview = new Preview.Builder().build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(lensFacing).build();
-        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setTargetResolution(new Size(1280, 720)).setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
+        ImageAnalysis imageAnalysis = new ImageAnalysis.Builder().setTargetResolution(new Size(previewView.getWidth(), previewView.getHeight())).setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST).build();
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(getContext()), new ImageAnalysis.Analyzer() {
             @Override
             public void analyze(@NonNull ImageProxy imageProxy) {
@@ -144,6 +154,7 @@ public class SquatCounterFragment extends Fragment {
                                     new OnSuccessListener<Pose>() {
                                         @Override
                                         public void onSuccess(Pose pose) {
+                                            List<PoseLandmark> allPoseLandmarks = pose.getAllPoseLandmarks();
                                             PoseLandmark leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER);
                                             PoseLandmark rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER);
                                             PoseLandmark leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW);
@@ -177,8 +188,13 @@ public class SquatCounterFragment extends Fragment {
                                             PoseLandmark rightEar = pose.getPoseLandmark(PoseLandmark.RIGHT_EAR);
                                             PoseLandmark leftMouth = pose.getPoseLandmark(PoseLandmark.LEFT_MOUTH);
                                             PoseLandmark rightMouth = pose.getPoseLandmark(PoseLandmark.RIGHT_MOUTH);
-                                            if (nose != null){
-                                                Log.i("Check", "Nose "+ nose.getPosition());
+                                            noOfSquats = 0;
+                                            if (personInFrameLikelyHood(allPoseLandmarks)>0.94){
+                                                warningText.setVisibility(View.INVISIBLE);
+                                                warningBackground.setVisibility(View.INVISIBLE);
+                                            }else{
+                                                warningText.setVisibility(View.VISIBLE);
+                                                warningBackground.setVisibility(View.VISIBLE);
                                             }
                                         }
                                     })
@@ -198,5 +214,15 @@ public class SquatCounterFragment extends Fragment {
             }
         });
         cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
+    }
+
+    private float personInFrameLikelyHood(List<PoseLandmark> allPoseLandmarks) {
+        float percent = 0;
+        float size = allPoseLandmarks.size();
+        for (int i = 0; i < size; i++) {
+            percent += allPoseLandmarks.get(i).getInFrameLikelihood();
+        }
+        percent /= size;
+        return percent;
     }
 }
