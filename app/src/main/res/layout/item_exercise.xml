@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         card_view:cardCornerRadius="10dp">
 
         <RelativeLayout
@@ -21,9 +22,9 @@
             <ImageView
                 android:id="@+id/ivImageExercise"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitStart"
+                android:scaleType="fitXY"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
@@ -32,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:text="YES"
                 android:padding="5dp"
-                android:layout_marginTop="-40dp"
                 android:textColor="@color/black"
                 android:layout_below="@+id/ivImageExercise"
                 android:textSize="30sp"
