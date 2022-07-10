@@ -37,6 +37,7 @@
                 android:layout_below="@+id/ivImageExercise"
                 android:textSize="30sp"
                 android:textStyle="bold"/>
+
             <TextView
                 android:id="@+id/tvDescriptionExercise"
                 android:layout_width="wrap_content"
