@@ -7,9 +7,9 @@
 
     <TextView
         android:id="@+id/tvDate"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/black"
@@ -20,7 +20,7 @@
         android:id="@+id/tvUser"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="125dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/black"
@@ -31,7 +31,7 @@
         android:id="@+id/tvnameOfExercise"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/black"
@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textColor="@color/black"
+        android:layout_marginStart="20dp"
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/tvnameOfExercise"
         app:layout_constraintTop_toTopOf="parent" />
