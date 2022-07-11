@@ -367,6 +367,7 @@ public class ProfileFragment extends Fragment {
     private void goToLoginActivity() {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 
     private static String getProfileUrl(final String userId) {
