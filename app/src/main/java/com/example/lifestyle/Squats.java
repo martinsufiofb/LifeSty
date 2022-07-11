@@ -12,7 +12,6 @@ public class Squats extends ParseObject {
     public String getCount(){
         return getString(KEY_COUNT);
     }
-    public ParseUser getUser(){return getParseUser(KEY_USER);}
 
     public void  setCount(String count){
         put(KEY_COUNT, count);
