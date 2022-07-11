@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +23,14 @@ import com.example.lifestyle.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
 import com.example.lifestyle.Pushups;
 import com.example.lifestyle.R;
+import com.example.lifestyle.SignupActivity;
 import com.example.lifestyle.Situps;
 import com.example.lifestyle.Squats;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -49,11 +51,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
     private static String TAG = "ProfileFragment";
     CardView logout;
+    CardView clearData;
+    CardView deleteAccount;
     String currentUserUsername;
     TextView profileUsername;
     TextView secondCircle;
     TextView firstCircle;
     TextView thirdCircle;
+    TextView emptyRecyclerView;
     TextView secondCircleName;
     TextView firstCircleName;
     TextView thirdCircleName;
@@ -108,6 +113,9 @@ public class ProfileFragment extends Fragment {
         firstCircle = view.findViewById(R.id.tv1);
         secondCircle = view.findViewById(R.id.tv2);
         thirdCircle = view.findViewById(R.id.tv3);
+        clearData = view.findViewById(R.id.clearData);
+        deleteAccount = view.findViewById(R.id.deleteAccount);
+        emptyRecyclerView = view.findViewById(R.id.tvEmptyRecyclerView);
         firstCircleName = view.findViewById(R.id.tvName1);
         secondCircleName = view.findViewById(R.id.tvName2);
         thirdCircleName = view.findViewById(R.id.tvName3);
@@ -127,6 +135,29 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        clearData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser user = ParseUser.getCurrentUser();
+                deleteHistoryData(user);
+                deletePushupsData(user);
+                deleteSitupsData(user);
+                deleteSquatsData(user);
+            }
+        });
+        
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser user = ParseUser.getCurrentUser();
+                deleteHistoryData(user);
+                deletePushupsData(user);
+                deleteSitupsData(user);
+                deleteSquatsData(user);
+                deleteUser(user);
+            }
+        });
+
         rvHistory = view.findViewById(R.id.rvHistory);
         historyList = new ArrayList<>();
         pushupsList = new ArrayList<>();
@@ -140,6 +171,68 @@ public class ProfileFragment extends Fragment {
         queryPushups();
         querySitups();
         querySquats();
+    }
+
+    private void deleteUser(ParseUser user) {
+        user.deleteInBackground();
+        logout();
+    }
+
+    private void deleteSquatsData(ParseUser user) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Squats");
+        query.whereEqualTo("user", user);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                ParseObject.deleteAllInBackground(objects);
+                squatsList.clear();
+                squatsTotal = 0;
+                isdone();
+            }
+        });
+    }
+
+    private void deleteSitupsData(ParseUser user) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Situps");
+        query.whereEqualTo("user", user);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                ParseObject.deleteAllInBackground(objects);
+                situpsList.clear();
+                situpsTotal = 0;
+                isdone();
+            }
+        });
+    }
+
+    private void deletePushupsData(ParseUser user) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Pushups");
+        query.whereEqualTo("user", user);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                ParseObject.deleteAllInBackground(objects);
+                pushupsList.clear();
+                pushupsTotal = 0;
+                isdone();
+            }
+        });
+    }
+
+    private void deleteHistoryData(ParseUser user) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
+        query.whereEqualTo("user", user);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                ParseObject.deleteAllInBackground(objects);
+                historyList.clear();
+                adapter.notifyDataSetChanged();
+                emptyRecyclerView.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private void querySquats() {
@@ -248,6 +341,11 @@ public class ProfileFragment extends Fragment {
                 }
                 historyList.addAll(history);
                 adapter.notifyDataSetChanged();
+                if (historyList.size()==0){
+                    emptyRecyclerView.setVisibility(View.VISIBLE);
+                }else{
+                    emptyRecyclerView.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
