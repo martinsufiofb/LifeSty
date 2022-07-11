@@ -187,6 +187,21 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <RelativeLayout
+            android:id="@+id/rlRecyclerViewHolder"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_below="@+id/tvHistory">
+            <TextView
+                android:id="@+id/tvEmptyRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Your history is empty"
+                android:translationZ="1dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHistory"
                 android:layout_width="match_parent"
@@ -195,8 +210,8 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="3dp"
                 android:background="@drawable/background_edit_text"
-                android:layout_below="@+id/tvHistory"
                 android:padding="8dp" />
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/clearData"
@@ -204,7 +219,7 @@
             android:layout_width="380dp"
             android:layout_height="50dp"
             app:cardCornerRadius="30dp"
-            android:layout_below="@+id/rvHistory"
+            android:layout_below="@+id/rlRecyclerViewHolder"
             android:layout_marginTop="10dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardBackgroundColor="#f6f8fa">
