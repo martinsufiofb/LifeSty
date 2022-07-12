@@ -168,15 +168,16 @@ public class SquatCounterFragment extends Fragment {
                                             PoseLandmark rightEyeInner = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_INNER);
                                             PoseLandmark rightEye = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE);
                                             PoseLandmark rightEyeOuter = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_OUTER);
-                                            float noseInFrameLikelihood = nose.getInFrameLikelihood();
-                                            float leftEyeInFrameLikelihood = leftEye.getInFrameLikelihood();
-                                            float leftEyeInnerInFrameLikelihood = leftEyeInner.getInFrameLikelihood();
-                                            float leftEyeOuterInFrameLikelihood = leftEyeOuter.getInFrameLikelihood();
-                                            float rightEyeInnerInFrameLikelihood = rightEyeInner.getInFrameLikelihood();
-                                            float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
-                                            float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
 
                                             if (allPoseLandmarks!= null && nose!= null){
+                                                float noseInFrameLikelihood = nose.getInFrameLikelihood();
+                                                float leftEyeInFrameLikelihood = leftEye.getInFrameLikelihood();
+                                                float leftEyeInnerInFrameLikelihood = leftEyeInner.getInFrameLikelihood();
+                                                float leftEyeOuterInFrameLikelihood = leftEyeOuter.getInFrameLikelihood();
+                                                float rightEyeInnerInFrameLikelihood = rightEyeInner.getInFrameLikelihood();
+                                                float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
+                                                float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
+                                                
                                                 if(personInFrameLikelyHood(allPoseLandmarks)>0.9899 && noseInFrameLikelihood>0.989 && leftEyeInFrameLikelihood>0.989
                                                         && leftEyeOuterInFrameLikelihood>0.989 && rightEyeOuterInFrameLikelihood>0.989 && rightEyeInFrameLikelihood>0.989
                                                         && rightEyeInnerInFrameLikelihood>0.989 && leftEyeInnerInFrameLikelihood>0.989) {
