@@ -1,44 +1,37 @@
 package com.example.lifestyle.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.lifestyle.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PushupsCounterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PushupsCounterFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    int result_code = 10;
     private String mParam1;
     private String mParam2;
+    CardView doneButton;
+    CardView cancelButton;
+    TextView numberOfPushups;
+    ImageView addSitupsButton;
+    int noOfPushups;
 
     public PushupsCounterFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PushupsCounterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static PushupsCounterFragment newInstance(String param1, String param2) {
         PushupsCounterFragment fragment = new PushupsCounterFragment();
         Bundle args = new Bundle();
@@ -60,7 +53,46 @@ public class PushupsCounterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_pushups_counter, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        doneButton = view.findViewById(R.id.pushupsCounterDoneBtn);
+        cancelButton = view.findViewById(R.id.pushupsCounterCancelBtn);
+        numberOfPushups = view.findViewById(R.id.tvPushupsNo);
+        addSitupsButton = view.findViewById(R.id.pushupsAddButton);
+        Intent intent = getActivity().getIntent();
+        String pushups  = intent.getStringExtra("numberOfPushups");
+        numberOfPushups.setText(pushups);
+        noOfPushups = Integer.parseInt(pushups);
+
+        addSitupsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noOfPushups++;
+                numberOfPushups.setText(String.valueOf(noOfPushups));
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("result", noOfPushups);
+                getActivity().setResult(result_code, intent);
+                getActivity().finish();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                getActivity().setResult(result_code, intent);
+                getActivity().finish();
+            }
+        });
     }
 }
