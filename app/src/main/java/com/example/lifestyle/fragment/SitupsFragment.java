@@ -3,6 +3,10 @@ package com.example.lifestyle.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,15 +27,30 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class SitupsFragment extends Fragment {
-    public TextView situpCount;
-    public Button situpButton;
-    public Button situpDoneButton;
-    public int situpNo = 0;
+    public TextView situpsCount;
+    public Button situpsStartCounterButton;
+    public Button situpsSaveButton;
     private static final String TAG = "SitupsFragments";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode()==11){
+                        Intent intent = result.getData();
+                        if(intent != null){
+                            int noOfPushups = intent.getIntExtra("situpsResult",0);
+                            if (noOfPushups != 0){
+                                situpsCount.setText(String.valueOf(noOfPushups));
+                            }
+                        }
+                    }
+                }
+            }
+    );
 
     public SitupsFragment() {
         // Required empty public constructor
@@ -64,27 +83,30 @@ public class SitupsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        situpCount = view.findViewById(R.id.situpCount);
-        situpButton = view.findViewById(R.id.situpButton);
-        situpDoneButton = view.findViewById(R.id.situpDoneButton);
-        situpNo = Integer.parseInt(situpCount.getText().toString());
-        situpButton.setOnClickListener(new View.OnClickListener() {
+        situpsCount = view.findViewById(R.id.situpCount);
+        situpsStartCounterButton = view.findViewById(R.id.situpButton);
+        situpsSaveButton = view.findViewById(R.id.situpDoneButton);
+        situpsStartCounterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int exerciseCliked = 2;
+                int exerciseClicked = 2;
+                String count = situpsCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
-                intent.putExtra("exerciseClicked", exerciseCliked);
-                startActivity(intent);
+                intent.putExtra("exerciseClicked", exerciseClicked);
+                intent.putExtra("numberOfPushups",count);
+                activityLauncher.launch(intent);
             }
         });
 
-        situpDoneButton.setOnClickListener(new View.OnClickListener() {
+        situpsSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                String count = String.valueOf(situpNo);
-                saveHistory(currentUser, count, "Sit Ups");
-                saveSitups(currentUser,count);
+                String count = situpsCount.getText().toString();
+                if (!count.equals("0")){
+                    saveHistory(currentUser, count, "Sit Ups");
+                    saveSitups(currentUser,count);
+                }
             }
         });
     }
@@ -116,8 +138,7 @@ public class SitupsFragment extends Fragment {
                     Log.e(TAG, "Error While Saving sit ups history", e);
                 }
                 Log.i(TAG, "Sit up history save was successfully");
-                situpNo =0;
-                situpCount.setText("0");
+                situpsCount.setText("0");
             }
         });
     }
