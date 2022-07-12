@@ -41,6 +41,7 @@ import com.google.mlkit.vision.pose.PoseDetector;
 import com.google.mlkit.vision.pose.PoseLandmark;
 import com.google.mlkit.vision.pose.accurate.AccuratePoseDetectorOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -53,8 +54,13 @@ public class SquatCounterFragment extends Fragment {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageView flipCameraLens;
     private TextView numberOfSquats;
-    private Integer noOfSquats;
+    private Integer noOfSquats = 0;
+    List<Float> noseData = new ArrayList<>();
     private TextView warningText;
+    private float rightElbowPreviousY;
+    private float leftElbowPreviousY;
+    private float rightElbowCurrentY;
+    private float leftElbowCurrentY;
     private FrameLayout warningBackground;
     private int lensFacing = CameraSelector.LENS_FACING_FRONT;
     PoseDetector poseDetector;
@@ -155,28 +161,6 @@ public class SquatCounterFragment extends Fragment {
                                         @Override
                                         public void onSuccess(Pose pose) {
                                             List<PoseLandmark> allPoseLandmarks = pose.getAllPoseLandmarks();
-                                            PoseLandmark leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER);
-                                            PoseLandmark rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER);
-                                            PoseLandmark leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW);
-                                            PoseLandmark rightElbow = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW);
-                                            PoseLandmark leftWrist = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST);
-                                            PoseLandmark rightWrist = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST);
-                                            PoseLandmark leftHip = pose.getPoseLandmark(PoseLandmark.LEFT_HIP);
-                                            PoseLandmark rightHip = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP);
-                                            PoseLandmark leftKnee = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE);
-                                            PoseLandmark rightKnee = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE);
-                                            PoseLandmark leftAnkle = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE);
-                                            PoseLandmark rightAnkle = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE);
-                                            PoseLandmark leftPinky = pose.getPoseLandmark(PoseLandmark.LEFT_PINKY);
-                                            PoseLandmark rightPinky = pose.getPoseLandmark(PoseLandmark.RIGHT_PINKY);
-                                            PoseLandmark leftIndex = pose.getPoseLandmark(PoseLandmark.LEFT_INDEX);
-                                            PoseLandmark rightIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_INDEX);
-                                            PoseLandmark leftThumb = pose.getPoseLandmark(PoseLandmark.LEFT_THUMB);
-                                            PoseLandmark rightThumb = pose.getPoseLandmark(PoseLandmark.RIGHT_THUMB);
-                                            PoseLandmark leftHeel = pose.getPoseLandmark(PoseLandmark.LEFT_HEEL);
-                                            PoseLandmark rightHeel = pose.getPoseLandmark(PoseLandmark.RIGHT_HEEL);
-                                            PoseLandmark leftFootIndex = pose.getPoseLandmark(PoseLandmark.LEFT_FOOT_INDEX);
-                                            PoseLandmark rightFootIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_FOOT_INDEX);
                                             PoseLandmark nose = pose.getPoseLandmark(PoseLandmark.NOSE);
                                             PoseLandmark leftEyeInner = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_INNER);
                                             PoseLandmark leftEye = pose.getPoseLandmark(PoseLandmark.LEFT_EYE);
@@ -184,17 +168,31 @@ public class SquatCounterFragment extends Fragment {
                                             PoseLandmark rightEyeInner = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_INNER);
                                             PoseLandmark rightEye = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE);
                                             PoseLandmark rightEyeOuter = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_OUTER);
-                                            PoseLandmark leftEar = pose.getPoseLandmark(PoseLandmark.LEFT_EAR);
-                                            PoseLandmark rightEar = pose.getPoseLandmark(PoseLandmark.RIGHT_EAR);
-                                            PoseLandmark leftMouth = pose.getPoseLandmark(PoseLandmark.LEFT_MOUTH);
-                                            PoseLandmark rightMouth = pose.getPoseLandmark(PoseLandmark.RIGHT_MOUTH);
-                                            noOfSquats = 0;
-                                            if (personInFrameLikelyHood(allPoseLandmarks)>0.94){
-                                                warningText.setVisibility(View.INVISIBLE);
-                                                warningBackground.setVisibility(View.INVISIBLE);
-                                            }else{
-                                                warningText.setVisibility(View.VISIBLE);
-                                                warningBackground.setVisibility(View.VISIBLE);
+                                            float noseInFrameLikelihood = nose.getInFrameLikelihood();
+                                            float leftEyeInFrameLikelihood = leftEye.getInFrameLikelihood();
+                                            float leftEyeInnerInFrameLikelihood = leftEyeInner.getInFrameLikelihood();
+                                            float leftEyeOuterInFrameLikelihood = leftEyeOuter.getInFrameLikelihood();
+                                            float rightEyeInnerInFrameLikelihood = rightEyeInner.getInFrameLikelihood();
+                                            float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
+                                            float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
+
+                                            if (allPoseLandmarks!= null && nose!= null){
+                                                if(personInFrameLikelyHood(allPoseLandmarks)>0.9899 && noseInFrameLikelihood>0.989 && leftEyeInFrameLikelihood>0.989
+                                                        && leftEyeOuterInFrameLikelihood>0.989 && rightEyeOuterInFrameLikelihood>0.989 && rightEyeInFrameLikelihood>0.989
+                                                        && rightEyeInnerInFrameLikelihood>0.989 && leftEyeInnerInFrameLikelihood>0.989) {
+                                                    warningText.setVisibility(View.INVISIBLE);
+                                                    warningBackground.setVisibility(View.INVISIBLE);
+                                                    noseData.add(nose.getPosition().y);
+
+                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>210){
+                                                        noOfSquats++;
+                                                        numberOfSquats.setText(noOfSquats.toString());
+                                                        noseData.clear();
+                                                    }
+                                                }else {
+                                                    warningText.setVisibility(View.VISIBLE);
+                                                    warningBackground.setVisibility(View.VISIBLE);
+                                                }
                                             }
                                         }
                                     })
@@ -213,7 +211,7 @@ public class SquatCounterFragment extends Fragment {
                 }
             }
         });
-        cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, imageAnalysis, preview);
+        cameraProvider.bindToLifecycle(this, cameraSelector, imageAnalysis, preview);
     }
 
     private float personInFrameLikelyHood(List<PoseLandmark> allPoseLandmarks) {
