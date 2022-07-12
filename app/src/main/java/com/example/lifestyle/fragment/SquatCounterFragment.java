@@ -177,7 +177,7 @@ public class SquatCounterFragment extends Fragment {
                                                 float rightEyeInnerInFrameLikelihood = rightEyeInner.getInFrameLikelihood();
                                                 float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
                                                 float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
-                                                
+
                                                 if(personInFrameLikelyHood(allPoseLandmarks)>0.9899 && noseInFrameLikelihood>0.989 && leftEyeInFrameLikelihood>0.989
                                                         && leftEyeOuterInFrameLikelihood>0.989 && rightEyeOuterInFrameLikelihood>0.989 && rightEyeInFrameLikelihood>0.989
                                                         && rightEyeInnerInFrameLikelihood>0.989 && leftEyeInnerInFrameLikelihood>0.989) {
@@ -185,7 +185,7 @@ public class SquatCounterFragment extends Fragment {
                                                     warningBackground.setVisibility(View.INVISIBLE);
                                                     noseData.add(nose.getPosition().y);
 
-                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>210){
+                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>350){
                                                         noOfSquats++;
                                                         numberOfSquats.setText(noOfSquats.toString());
                                                         noseData.clear();
