@@ -1,8 +1,13 @@
 package com.example.lifestyle.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,12 +32,27 @@ public class PushupsFragment extends Fragment {
     public TextView pushupCount;
     public Button pushupButton;
     public Button pushupDoneButton;
-    public int pushupNo = 0;
     private static final String TAG = "PushupsFragments";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode()==10){
+                        Intent intent = result.getData();
+                        if(intent != null){
+                            int noOfSquats = intent.getIntExtra("result",0);
+                            if (noOfSquats != 0){
+                                pushupCount.setText(String.valueOf(noOfSquats));
+                            }
+                        }
+                    }
+                }
+            }
+    );
 
     public PushupsFragment() {
         // Required empty public constructor
@@ -68,14 +88,15 @@ public class PushupsFragment extends Fragment {
         pushupCount = view.findViewById(R.id.pushupCount);
         pushupButton = view.findViewById(R.id.pushupButton);
         pushupDoneButton = view.findViewById(R.id.pushupDoneButton);
-        pushupNo = Integer.parseInt(pushupCount.getText().toString());
         pushupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int exerciseCliked = 1;
+                int exerciseClicked = 1;
+                String count = pushupCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
-                intent.putExtra("exerciseClicked", exerciseCliked);
-                startActivity(intent);
+                intent.putExtra("exerciseClicked", exerciseClicked);
+                intent.putExtra("numberOfPushups",count);
+                activityLauncher.launch(intent);
             }
         });
 
@@ -83,9 +104,11 @@ public class PushupsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                String count = String.valueOf(pushupNo);
-                saveHistory(currentUser, count, "Push Ups");
-                savePush(currentUser, count);
+                String count = pushupCount.getText().toString();
+                if (!count.equals("0")){
+                    saveHistory(currentUser, count, "Push Ups");
+                    savePush(currentUser, count);
+                }
             }
         });
     }
@@ -100,7 +123,6 @@ public class PushupsFragment extends Fragment {
                 if (e!=null){
                     Log.e(TAG, "Error While Saving push ups", e);
                 }
-                Log.i(TAG, "Push ups save was successfully");
             }
         });
     }
@@ -117,7 +139,6 @@ public class PushupsFragment extends Fragment {
                     Log.e(TAG, "Error While Saving push ups history", e);
                 }
                 Log.i(TAG, "Push up history save was successfully");
-                pushupNo =0;
                 pushupCount.setText("0");
             }
         });
