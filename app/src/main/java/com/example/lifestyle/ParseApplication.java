@@ -10,7 +10,6 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ParseObject.registerSubclass(Exercise.class);
-        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(History.class);
         ParseObject.registerSubclass(Pushups.class);
         ParseObject.registerSubclass(Situps.class);
