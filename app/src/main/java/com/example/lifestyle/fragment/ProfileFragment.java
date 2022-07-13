@@ -143,6 +143,10 @@ public class ProfileFragment extends Fragment {
                 deletePushupsData(user);
                 deleteSitupsData(user);
                 deleteSquatsData(user);
+                user.put("pushUps", 0);
+                user.put("sitUps", 0);
+                user.put("squats", 0);
+                user.saveInBackground();
             }
         });
         
