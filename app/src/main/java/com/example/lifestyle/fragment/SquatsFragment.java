@@ -125,6 +125,11 @@ public class SquatsFragment extends Fragment {
                 Log.i(TAG, "Squats save was successfully");
             }
         });
+        ParseUser user = ParseUser.getCurrentUser();
+        int totalSquatsCount = user.getInt("squats");
+        totalSquatsCount += Integer.parseInt(squatsCount.getText().toString());
+        user.put("squats",totalSquatsCount);
+        user.saveInBackground();
     }
 
     public void saveHistory(ParseUser currentUser, String squatsno, String name){
