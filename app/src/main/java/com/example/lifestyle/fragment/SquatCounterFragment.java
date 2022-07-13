@@ -1,6 +1,7 @@
 package com.example.lifestyle.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -46,6 +48,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class SquatCounterFragment extends Fragment {
+    int result_code = 12;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -57,13 +60,11 @@ public class SquatCounterFragment extends Fragment {
     private Integer noOfSquats = 0;
     List<Float> noseData = new ArrayList<>();
     private TextView warningText;
-    private float rightElbowPreviousY;
-    private float leftElbowPreviousY;
-    private float rightElbowCurrentY;
-    private float leftElbowCurrentY;
     private FrameLayout warningBackground;
     private int lensFacing = CameraSelector.LENS_FACING_FRONT;
     PoseDetector poseDetector;
+    CardView squatsDoneButton;
+    CardView squatsCancelButton;
 
     public SquatCounterFragment() {
         // Required empty public constructor
@@ -101,7 +102,14 @@ public class SquatCounterFragment extends Fragment {
         numberOfSquats = view.findViewById(R.id.tvNoOfSquats);
         warningBackground = view.findViewById(R.id.warningBackground);
         warningText = view.findViewById(R.id.warningText);
+        squatsCancelButton = view.findViewById(R.id.squatsCounterCancelBtn);
+        squatsDoneButton = view.findViewById(R.id.squatsCounterDoneBtn);
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
+        Intent intent = getActivity().getIntent();
+        String squats  = intent.getStringExtra("numberOfSquats");
+        numberOfSquats.setText(squats);
+        noOfSquats = Integer.parseInt(squats);
+
         flipCameraLens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +149,25 @@ public class SquatCounterFragment extends Fragment {
                         .build();
 
         poseDetector = PoseDetection.getClient(options);
+
+        squatsDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("squatsResult", noOfSquats);
+                getActivity().setResult(result_code, intent);
+                getActivity().finish();
+            }
+        });
+
+        squatsCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                getActivity().setResult(result_code, intent);
+                getActivity().finish();
+            }
+        });
     }
 
     private void bindImageAnalysis(ProcessCameraProvider cameraProvider) {
