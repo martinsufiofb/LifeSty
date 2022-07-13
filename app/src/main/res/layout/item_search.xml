@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivSearchProfilePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/dpdefault"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="0dp" />
+
+    <TextView
+        android:id="@+id/tvSearchUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivSearchProfilePic"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Username"/>
+
+    <TextView
+        android:id="@+id/tvSearchPushups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/ivSearchProfilePic"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvSearchUsername"
+        android:text="Push Ups"/>
+
+    <TextView
+        android:id="@+id/tvSearchPushupsNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvSearchPushups"
+        android:layout_below="@+id/tvSearchUsername"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/tvSearchSitups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tvSearchPushupsNo"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvSearchUsername"
+        android:text="Sit Ups"/>
+
+    <TextView
+        android:id="@+id/tvSearchSitupsNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvSearchSitups"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvSearchUsername"
+        android:layout_marginLeft="10dp"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/tvSearchSquats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tvSearchSitupsNo"
+        android:layout_below="@+id/tvSearchUsername"
+        android:text="Squats"/>
+
+    <TextView
+        android:id="@+id/tvSearchSquatsN0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tvSearchSquats"
+        android:layout_below="@+id/tvSearchUsername"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="0"/>
+
+
+</RelativeLayout>
