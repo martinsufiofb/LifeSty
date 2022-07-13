@@ -3,6 +3,10 @@ package com.example.lifestyle.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,14 +28,29 @@ import com.parse.SaveCallback;
 
 public class SquatsFragment extends Fragment {
     public TextView squatsCount;
-    public Button squatsButton;
-    public Button squatsDoneButton;
-    public int squatsNo = 0;
+    public Button squatsStartCounterButton;
+    public Button squatsSaveButton;
     private static final String TAG = "SquatsFragments";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
+    ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode()==12){
+                        Intent intent = result.getData();
+                        if(intent != null){
+                            int noOfSquats = intent.getIntExtra("squatsResult",0);
+                            if (noOfSquats != 0){
+                                squatsCount.setText(String.valueOf(noOfSquats));
+                            }
+                        }
+                    }
+                }
+            }
+    );
 
     public SquatsFragment() {
         // Required empty public constructor
@@ -65,26 +84,30 @@ public class SquatsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         squatsCount = view.findViewById(R.id.squatsCount);
-        squatsButton = view.findViewById(R.id.squatsButton);
-        squatsDoneButton = view.findViewById(R.id.squatsDoneButton);
-        squatsNo = Integer.parseInt(squatsCount.getText().toString());
-        squatsButton.setOnClickListener(new View.OnClickListener() {
+        squatsStartCounterButton = view.findViewById(R.id.squatsButton);
+        squatsSaveButton = view.findViewById(R.id.squatsDoneButton);
+
+        squatsStartCounterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int exerciseCliked = 3;
+                int exerciseClicked = 3;
+                String count = squatsCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
-                intent.putExtra("exerciseClicked", exerciseCliked);
-                startActivity(intent);
+                intent.putExtra("exerciseClicked", exerciseClicked);
+                intent.putExtra("numberOfSquats",count);
+                activityLauncher.launch(intent);
             }
         });
 
-        squatsDoneButton.setOnClickListener(new View.OnClickListener() {
+        squatsSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                String count = String.valueOf(squatsNo);
-                saveHistory(currentUser, count, "Squats");
-                saveSquats(currentUser,count);
+                String count = squatsCount.getText().toString();
+                if (!count.equals("0")){
+                    saveHistory(currentUser, count, "Squats");
+                    saveSquats(currentUser,count);
+                }
             }
         });
     }
@@ -116,7 +139,6 @@ public class SquatsFragment extends Fragment {
                     Log.e(TAG, "Error While Saving squats history", e);
                 }
                 Log.i(TAG, "Squats history save was successfully");
-                squatsNo =0;
                 squatsCount.setText("0");
             }
         });
