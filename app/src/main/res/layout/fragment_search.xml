@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".fragment.SearchFragment"
-    android:background="@color/black">
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etSearchBar"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="8dp"
+            android:padding="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:background="@drawable/search_background"
+            android:layout_marginTop="10dp"
+            android:hint="Search others..." />
+
+        <ImageView
+            android:id="@+id/ivSearchButton"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_search"/>
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Search"
-        android:gravity="center"/>
-</RelativeLayout>
+        android:layout_marginTop="10dp"/>
+</LinearLayout>
