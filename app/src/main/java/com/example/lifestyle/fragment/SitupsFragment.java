@@ -42,9 +42,9 @@ public class SitupsFragment extends Fragment {
                     if(result.getResultCode()==11){
                         Intent intent = result.getData();
                         if(intent != null){
-                            int noOfPushups = intent.getIntExtra("situpsResult",0);
-                            if (noOfPushups != 0){
-                                situpsCount.setText(String.valueOf(noOfPushups));
+                            int noOfSitups = intent.getIntExtra("situpsResult",0);
+                            if (noOfSitups != 0){
+                                situpsCount.setText(String.valueOf(noOfSitups));
                             }
                         }
                     }

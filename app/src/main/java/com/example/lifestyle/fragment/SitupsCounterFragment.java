@@ -60,9 +60,9 @@ public class SitupsCounterFragment extends Fragment {
         cancelButton = view.findViewById(R.id.situpsCounterCancelBtn);
         numberOfSitups = view.findViewById(R.id.tvNoOfSitups);
         Intent intent = getActivity().getIntent();
-        String pushups  = intent.getStringExtra("numberOfPushups");
-        numberOfSitups.setText(pushups);
-        noOfSitups = Integer.parseInt(pushups);
+        String situps  = intent.getStringExtra("numberOfPushups");
+        numberOfSitups.setText(situps);
+        noOfSitups = Integer.parseInt(situps);
 
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
