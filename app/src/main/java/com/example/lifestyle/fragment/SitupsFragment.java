@@ -124,6 +124,11 @@ public class SitupsFragment extends Fragment {
                 Log.i(TAG, "Sit ups save was successfully");
             }
         });
+        ParseUser user = ParseUser.getCurrentUser();
+        int totalSitUps = user.getInt("sitUps");
+        totalSitUps += Integer.parseInt(situpsCount.getText().toString());
+        user.put("sitUps",totalSitUps);
+        user.saveInBackground();
     }
 
     public void saveHistory(ParseUser currentUser, String situpno, String name){
