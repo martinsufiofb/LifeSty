@@ -212,7 +212,7 @@ public class SquatCounterFragment extends Fragment {
                                                     warningBackground.setVisibility(View.INVISIBLE);
                                                     noseData.add(nose.getPosition().y);
 
-                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>350){
+                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>260){
                                                         noOfSquats++;
                                                         numberOfSquats.setText(noOfSquats.toString());
                                                         noseData.clear();
