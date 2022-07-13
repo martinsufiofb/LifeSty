@@ -123,6 +123,11 @@ public class PushupsFragment extends Fragment {
                 }
             }
         });
+        ParseUser user = ParseUser.getCurrentUser();
+        int totalPushupsCount = user.getInt("pushUps");
+        totalPushupsCount += Integer.parseInt(pushupsCount.getText().toString());
+        user.put("pushUps",totalPushupsCount);
+        user.saveInBackground();
     }
 
     public void saveHistory(ParseUser currentUser, String pushupno, String name){
