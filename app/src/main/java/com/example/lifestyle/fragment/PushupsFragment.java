@@ -42,9 +42,9 @@ public class PushupsFragment extends Fragment {
                     if(result.getResultCode()==10){
                         Intent intent = result.getData();
                         if(intent != null){
-                            int noOfSquats = intent.getIntExtra("result",0);
-                            if (noOfSquats != 0){
-                                pushupsCount.setText(String.valueOf(noOfSquats));
+                            int noOfPushups = intent.getIntExtra("result",0);
+                            if (noOfPushups != 0){
+                                pushupsCount.setText(String.valueOf(noOfPushups));
                             }
                         }
                     }
