@@ -36,9 +36,8 @@ public class SearchFragment extends Fragment {
     private String mParam2;
     public static RecyclerView rvSearch;
     private SearchAdapter adapter;
-    private List<ParseUser> allUsers;
+    public static List<ParseUser> allUsers;
     EditText searchBar;
-
     ImageView searchButton;
 
     public SearchFragment() {
@@ -82,22 +81,16 @@ public class SearchFragment extends Fragment {
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text = searchBar.getText().toString();
-                allUsers.clear();
-                adapter.notifyDataSetChanged();
                 queryUsers(text);
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +101,6 @@ public class SearchFragment extends Fragment {
                 queryUsers(text);
             }
         });
-
     }
 
     private void queryUsers(String text) {
@@ -124,6 +116,7 @@ public class SearchFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, ": "+users.size());
+                allUsers.clear();
                 allUsers.addAll(users);
                 adapter.notifyDataSetChanged();
             }
