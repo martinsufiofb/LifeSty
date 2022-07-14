@@ -23,7 +23,7 @@
             android:inputType="textPersonName"
             android:background="@drawable/search_background"
             android:layout_marginTop="10dp"
-            android:hint="Search others..." />
+            android:hint="Search friends..." />
 
         <ImageView
             android:id="@+id/ivSearchButton"
