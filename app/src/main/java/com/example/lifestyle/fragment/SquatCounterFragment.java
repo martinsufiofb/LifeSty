@@ -131,6 +131,7 @@ public class SquatCounterFragment extends Fragment {
                 }, ContextCompat.getMainExecutor(getContext()));
             }
         });
+
         cameraProviderFuture.addListener(new Runnable() {
             @Override
             public void run() {
@@ -147,7 +148,6 @@ public class SquatCounterFragment extends Fragment {
                 new AccuratePoseDetectorOptions.Builder()
                         .setDetectorMode(AccuratePoseDetectorOptions.STREAM_MODE)
                         .build();
-
         poseDetector = PoseDetection.getClient(options);
 
         squatsDoneButton.setOnClickListener(new View.OnClickListener() {
