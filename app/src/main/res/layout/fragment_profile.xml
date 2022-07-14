@@ -50,6 +50,7 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:id="@+id/llProfileImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="120dp"
@@ -192,6 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="270dp"
             android:layout_below="@+id/tvHistory">
+
             <TextView
                 android:id="@+id/tvEmptyRecyclerView"
                 android:layout_width="wrap_content"
