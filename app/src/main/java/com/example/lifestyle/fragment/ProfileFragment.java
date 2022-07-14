@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
     int pushupsTotal;
     int situpsTotal;
     int squatsTotal;
-    public static RecyclerView rvHistory;
+    private RecyclerView rvHistory;
     private HistoryAdapter adapter;
     private List<History> historyList;
     private List<Pushups> pushupsList;
@@ -191,7 +191,9 @@ public class ProfileFragment extends Fragment {
                 ParseObject.deleteAllInBackground(objects);
                 squatsList.clear();
                 squatsTotal = 0;
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -205,7 +207,9 @@ public class ProfileFragment extends Fragment {
                 ParseObject.deleteAllInBackground(objects);
                 situpsList.clear();
                 situpsTotal = 0;
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -219,7 +223,9 @@ public class ProfileFragment extends Fragment {
                 ParseObject.deleteAllInBackground(objects);
                 pushupsList.clear();
                 pushupsTotal = 0;
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -254,7 +260,9 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i<squatsList.size(); i++){
                     squatsTotal+= Integer.parseInt(squatsList.get(i).getCount());
                 }
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -274,7 +282,9 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i<situpsList.size(); i++){
                     situpsTotal+= Integer.parseInt(situpsList.get(i).getCount());
                 }
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -294,7 +304,9 @@ public class ProfileFragment extends Fragment {
                 for(int i = 0; i<pushupsList.size(); i++){
                     pushupsTotal+= Integer.parseInt(pushupsList.get(i).getCount());
                 }
-                isdone();
+                isDone(secondCircle, firstCircle, thirdCircle,
+                        secondCircleName, firstCircleName, thirdCircleName,
+                        pushupsTotal, situpsTotal, squatsTotal);
             }
         });
     }
@@ -309,7 +321,9 @@ public class ProfileFragment extends Fragment {
         return temp;
     }
 
-    private void isdone() {
+    public static void isDone(TextView secondCircle, TextView firstCircle, TextView thirdCircle,
+                        TextView secondCircleName, TextView firstCircleName, TextView thirdCircleName,
+                        int pushupsTotal, int situpsTotal, int squatsTotal) {
         HashMap<String, Integer> hm = new HashMap<>();
         List<TextView> l1 = new ArrayList<>();
         List<TextView> l2 = new ArrayList<>();
