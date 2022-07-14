@@ -102,9 +102,10 @@ public class SitupsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                String userId = currentUser.getObjectId();
                 String count = situpsCount.getText().toString();
                 if (!count.equals("0")){
-                    saveHistory(currentUser, count, "Sit Ups");
+                    saveHistory(currentUser, count, "Sit Ups", userId);
                     saveSitups(currentUser,count);
                 }
             }
@@ -121,7 +122,6 @@ public class SitupsFragment extends Fragment {
                 if (e!=null){
                     Log.e(TAG, "Error While Saving sit ups", e);
                 }
-                Log.i(TAG, "Sit ups save was successfully");
             }
         });
         ParseUser user = ParseUser.getCurrentUser();
@@ -131,18 +131,18 @@ public class SitupsFragment extends Fragment {
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String situpno, String name){
+    public void saveHistory(ParseUser currentUser, String situpno, String name, String userId){
         History history = new History();
         history.setUser(currentUser);
         history.setCount(situpno);
         history.setNameOfExercise(name);
+        history.setUserId(userId);
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e!=null){
                     Log.e(TAG, "Error While Saving sit ups history", e);
                 }
-                Log.i(TAG, "Sit up history save was successfully");
                 situpsCount.setText("0");
             }
         });

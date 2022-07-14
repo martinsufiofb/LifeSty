@@ -102,9 +102,10 @@ public class PushupsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                String userId = currentUser.getObjectId();
                 String count = pushupsCount.getText().toString();
                 if (!count.equals("0")){
-                    saveHistory(currentUser, count, "Push Ups");
+                    saveHistory(currentUser, count, "Push Ups", userId);
                     savePush(currentUser, count);
                 }
             }
@@ -130,11 +131,12 @@ public class PushupsFragment extends Fragment {
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String pushupno, String name){
+    public void saveHistory(ParseUser currentUser, String pushupno, String name, String userId){
         History history = new History();
         history.setUser(currentUser);
         history.setCount(pushupno);
         history.setNameOfExercise(name);
+        history.setUserId(userId);
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
