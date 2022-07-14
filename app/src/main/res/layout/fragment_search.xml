@@ -7,7 +7,7 @@
     tools:context=".fragment.SearchFragment"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -15,11 +15,10 @@
 
         <EditText
             android:id="@+id/etSearchBar"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="50dp"
             android:padding="10dp"
-            android:ems="10"
             android:inputType="textPersonName"
             android:background="@drawable/search_background"
             android:layout_marginTop="10dp"
@@ -28,10 +27,12 @@
         <ImageView
             android:id="@+id/ivSearchButton"
             android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_search"/>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
