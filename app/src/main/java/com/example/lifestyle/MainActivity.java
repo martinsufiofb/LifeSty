@@ -7,11 +7,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import java.util.Map.Entry;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import com.example.lifestyle.fragment.FriendsFragment;
@@ -19,6 +19,7 @@ import com.example.lifestyle.fragment.HomeFragment;
 import com.example.lifestyle.fragment.ProfileFragment;
 import com.example.lifestyle.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
