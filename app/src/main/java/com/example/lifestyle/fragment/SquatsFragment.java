@@ -103,9 +103,10 @@ public class SquatsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                String userId = currentUser.getObjectId();
                 String count = squatsCount.getText().toString();
                 if (!count.equals("0")){
-                    saveHistory(currentUser, count, "Squats");
+                    saveHistory(currentUser, count, "Squats", userId);
                     saveSquats(currentUser,count);
                 }
             }
@@ -122,7 +123,6 @@ public class SquatsFragment extends Fragment {
                 if (e!=null){
                     Log.e(TAG, "Error While Saving squats", e);
                 }
-                Log.i(TAG, "Squats save was successfully");
             }
         });
         ParseUser user = ParseUser.getCurrentUser();
@@ -132,18 +132,18 @@ public class SquatsFragment extends Fragment {
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String squatsno, String name){
+    public void saveHistory(ParseUser currentUser, String squatsno, String name, String userId){
         History history = new History();
         history.setUser(currentUser);
         history.setCount(squatsno);
         history.setNameOfExercise(name);
+        history.setUserId(userId);
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e!=null){
                     Log.e(TAG, "Error While Saving squats history", e);
                 }
-                Log.i(TAG, "Squats history save was successfully");
                 squatsCount.setText("0");
             }
         });
