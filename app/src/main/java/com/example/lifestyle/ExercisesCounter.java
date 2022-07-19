@@ -45,7 +45,7 @@ public class ExercisesCounter extends AppCompatActivity {
         fragments.put(0, new PushupsFragment());
         fragments.put(1, new SitupsFragment());
         fragments.put(2, new SquatsFragment());
-        viewPager2.setCurrentItem(page);
+        viewPager2.setCurrentItem(page,false);
     }
 
     private void setViewPagerListener() {
