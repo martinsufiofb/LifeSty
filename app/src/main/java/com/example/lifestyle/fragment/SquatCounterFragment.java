@@ -104,7 +104,7 @@ public class SquatCounterFragment extends Fragment {
         squatsDoneButton = view.findViewById(R.id.squatsCounterDoneBtn);
         cameraProviderFuture = ProcessCameraProvider.getInstance(getContext());
         Intent intent = getActivity().getIntent();
-        String squats  = intent.getStringExtra("numberOfSquats");
+        String squats = intent.getStringExtra("numberOfSquats");
         numberOfSquats.setText(squats);
         noOfSquats = Integer.parseInt(squats);
 
@@ -194,7 +194,7 @@ public class SquatCounterFragment extends Fragment {
                                             PoseLandmark rightEye = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE);
                                             PoseLandmark rightEyeOuter = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_OUTER);
 
-                                            if (allPoseLandmarks!= null && nose!= null){
+                                            if (allPoseLandmarks != null && nose != null) {
                                                 float noseInFrameLikelihood = nose.getInFrameLikelihood();
                                                 float leftEyeInFrameLikelihood = leftEye.getInFrameLikelihood();
                                                 float leftEyeInnerInFrameLikelihood = leftEyeInner.getInFrameLikelihood();
@@ -203,19 +203,19 @@ public class SquatCounterFragment extends Fragment {
                                                 float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
                                                 float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
 
-                                                if(personInFrameLikelyHood(allPoseLandmarks)>bodyThresholdProbability && noseInFrameLikelihood>thresholdProbability && leftEyeInFrameLikelihood>thresholdProbability
-                                                        && leftEyeOuterInFrameLikelihood>thresholdProbability && rightEyeOuterInFrameLikelihood>thresholdProbability && rightEyeInFrameLikelihood>thresholdProbability
-                                                        && rightEyeInnerInFrameLikelihood>thresholdProbability && leftEyeInnerInFrameLikelihood>thresholdProbability) {
+                                                if (personInFrameLikelyHood(allPoseLandmarks) > bodyThresholdProbability && noseInFrameLikelihood > thresholdProbability && leftEyeInFrameLikelihood > thresholdProbability
+                                                        && leftEyeOuterInFrameLikelihood > thresholdProbability && rightEyeOuterInFrameLikelihood > thresholdProbability && rightEyeInFrameLikelihood > thresholdProbability
+                                                        && rightEyeInnerInFrameLikelihood > thresholdProbability && leftEyeInnerInFrameLikelihood > thresholdProbability) {
                                                     warningText.setVisibility(View.INVISIBLE);
                                                     warningBackground.setVisibility(View.INVISIBLE);
                                                     noseData.add(nose.getPosition().y);
 
-                                                    if(noseData.size()>1 && noseData.get(noseData.size()-1)-noseData.get(noseData.size()-2)>260){
+                                                    if (noseData.size() > 1 && noseData.get(noseData.size() - 1) - noseData.get(noseData.size() - 2) > 260) {
                                                         noOfSquats++;
                                                         numberOfSquats.setText(noOfSquats.toString());
                                                         noseData.clear();
                                                     }
-                                                }else {
+                                                } else {
                                                     warningText.setVisibility(View.VISIBLE);
                                                     warningBackground.setVisibility(View.VISIBLE);
                                                 }
@@ -225,7 +225,7 @@ public class SquatCounterFragment extends Fragment {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.i("Check","Not detected");
+                                    Log.i("Check", "Not detected");
                                 }
                             }).addOnCompleteListener(new OnCompleteListener<Pose>() {
                                 @Override
