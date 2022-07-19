@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.lifestyle.R;
@@ -24,6 +25,7 @@ public class SitupsCounterFragment extends Fragment {
     CardView doneButton;
     CardView cancelButton;
     TextView numberOfSitups;
+    Button situpsCounter;
     int noOfSitups = 0;
 
     public SitupsCounterFragment() {
@@ -59,16 +61,25 @@ public class SitupsCounterFragment extends Fragment {
         doneButton = view.findViewById(R.id.situpsCounterDoneBtn);
         cancelButton = view.findViewById(R.id.situpsCounterCancelBtn);
         numberOfSitups = view.findViewById(R.id.tvNoOfSitups);
+        situpsCounter = view.findViewById(R.id.btnSitupsCounter);
         Intent intent = getActivity().getIntent();
         String situps  = intent.getStringExtra("numberOfPushups");
         numberOfSitups.setText(situps);
         noOfSitups = Integer.parseInt(situps);
 
+        situpsCounter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noOfSitups++;
+                numberOfSitups.setText(Integer.toString(noOfSitups));
+            }
+        });
+
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("result", noOfSitups);
+                intent.putExtra("situpsResult", noOfSitups);
                 getActivity().setResult(result_code, intent);
                 getActivity().finish();
             }
