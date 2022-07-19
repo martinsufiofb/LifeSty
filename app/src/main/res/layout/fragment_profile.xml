@@ -215,13 +215,21 @@
                 android:padding="8dp" />
         </RelativeLayout>
 
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/rlRecyclerViewHolder"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/clearData"
             android:layout_centerHorizontal="true"
             android:layout_width="380dp"
             android:layout_height="50dp"
             app:cardCornerRadius="30dp"
-            android:layout_below="@+id/rlRecyclerViewHolder"
+            android:layout_below="@+id/lineChart"
             android:layout_marginTop="10dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardBackgroundColor="#f6f8fa">
