@@ -63,7 +63,7 @@ public class SitupsCounterFragment extends Fragment {
         numberOfSitups = view.findViewById(R.id.tvNoOfSitups);
         situpsCounter = view.findViewById(R.id.btnSitupsCounter);
         Intent intent = getActivity().getIntent();
-        String situps  = intent.getStringExtra("numberOfPushups");
+        String situps = intent.getStringExtra("numberOfPushups");
         numberOfSitups.setText(situps);
         noOfSitups = Integer.parseInt(situps);
 

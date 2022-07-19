@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.SquatCounterFragment">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.camera.view.PreviewView>
+        android:layout_height="match_parent"></androidx.camera.view.PreviewView>
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/radius"
         android:alpha="0.6"
+        android:background="@drawable/radius"
         android:padding="5dp">
 
         <TextView
             android:id="@+id/tvNoOfSquats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="100dp"
+            android:text="0"
             android:textColor="@color/white"
-            android:text="0" />
+            android:textSize="100dp" />
     </FrameLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/warningBackground"
         android:layout_width="400dp"
         android:layout_height="30dp"
-        app:cardCornerRadius="50dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:alpha="0.3"
-        app:cardBackgroundColor="@color/purple_700"/>
+        app:cardBackgroundColor="@color/purple_700"
+        app:cardCornerRadius="50dp" />
 
     <TextView
         android:id="@+id/warningText"
@@ -45,61 +44,61 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Make sure your whole body is in the camera"
-        android:textStyle="bold"
-        android:textSize="17dp"
         android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold"
         android:translationZ="3dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/black"
         android:layout_alignParentBottom="true"
-        android:alpha="0.3"/>
+        android:alpha="0.3"
+        android:background="@color/black" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/squatsCounterDoneBtn"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/squatsCounterDoneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="Done"
+        app:cardBackgroundColor="#007500"
+        app:cardCornerRadius="70dp">
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#007500"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="30dp"
-            app:cardCornerRadius="70dp"
-            android:layout_marginBottom="20dp"
-            android:text="Done">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_done"/>
-        </androidx.cardview.widget.CardView>
+            android:src="@drawable/ic_done" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/squatsCounterCancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/red"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginLeft="30dp"
-        app:cardCornerRadius="70dp"
         android:layout_marginBottom="20dp"
         android:padding="10dp"
-        android:text="Done">
+        android:text="Done"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="70dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_close"/>
+            android:src="@drawable/ic_close" />
     </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/ivSwitchlens"
-            android:src="@drawable/ic_baseline_flip_camera_ios_24"
-            android:layout_width="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:layout_height="50dp"/>
+    <ImageView
+        android:id="@+id/ivSwitchlens"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_baseline_flip_camera_ios_24" />
 </RelativeLayout>

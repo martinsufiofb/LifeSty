@@ -68,14 +68,14 @@ public class SearchDetailsActivity extends AppCompatActivity {
         clearData.setVisibility(View.INVISIBLE);
         deleteAccount.setVisibility(View.INVISIBLE);
         logout.setVisibility(View.INVISIBLE);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)profileImage.getLayoutParams();
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) profileImage.getLayoutParams();
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         profileImage.setLayoutParams(layoutParams);
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
         String username = intent.getStringExtra("username");
-        pushupsTotal = intent.getIntExtra("pushupsNo",0);
-        situpsTotal = intent.getIntExtra("situpsNo",0);
+        pushupsTotal = intent.getIntExtra("pushupsNo", 0);
+        situpsTotal = intent.getIntExtra("situpsNo", 0);
         squatsTotal = intent.getIntExtra("squatsNo", 0);
         profileUsername.setText(username);
 
@@ -94,15 +94,15 @@ public class SearchDetailsActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<History>() {
             @Override
             public void done(List<History> history, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     return;
                 }
                 historyList.addAll(history);
                 adapter.notifyDataSetChanged();
-                if (historyList.size()==0){
+                if (historyList.size() == 0) {
                     emptyRecyclerView.setText("This person's history is empty");
                     emptyRecyclerView.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     emptyRecyclerView.setVisibility(View.INVISIBLE);
                 }
             }

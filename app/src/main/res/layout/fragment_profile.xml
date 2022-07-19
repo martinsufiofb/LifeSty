@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.ProfileFragment">
 
     <RelativeLayout
@@ -24,27 +24,27 @@
                 android:layout_width="110dp"
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="110dp"
                 android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="#f6f8fa"
+                android:layout_marginEnd="110dp"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:cardBackgroundColor="#f6f8fa"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/ic_logout" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="50dp"
                     android:text="Logout"
                     android:textColor="@color/red" />
             </androidx.cardview.widget.CardView>
@@ -200,9 +200,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Your history is empty"
+                android:textColor="@color/black"
                 android:translationZ="1dp"
-                android:visibility="invisible"
-                android:textColor="@color/black"/>
+                android:visibility="invisible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHistory"
@@ -218,48 +218,48 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
             android:layout_height="400dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/rlRecyclerViewHolder"/>
+            android:layout_below="@+id/rlRecyclerViewHolder"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/clearData"
-            android:layout_centerHorizontal="true"
             android:layout_width="380dp"
             android:layout_height="50dp"
-            app:cardCornerRadius="30dp"
             android:layout_below="@+id/lineChart"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardBackgroundColor="#f6f8fa">
+            app:cardBackgroundColor="#f6f8fa"
+            app:cardCornerRadius="30dp">
 
             <TextView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                android:text="Clear all data"/>
+                android:layout_gravity="center"
+                android:text="Clear all data"
+                android:textColor="@color/red" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/deleteAccount"
-            android:layout_centerHorizontal="true"
             android:layout_width="380dp"
             android:layout_height="50dp"
             android:layout_below="@+id/clearData"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="15dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            app:cardCornerRadius="30dp"
-            app:cardBackgroundColor="@color/red">
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="30dp">
 
             <TextView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="DELETE ACCOUNT"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </ScrollView>

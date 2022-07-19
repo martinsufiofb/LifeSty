@@ -26,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (ParseUser.getCurrentUser()!=null){
+        if (ParseUser.getCurrentUser() != null) {
             goToMainActivity();
         }
-        
+
         usernameInput = findViewById(R.id.etLoginUsername);
         passwordInput = findViewById(R.id.etLoginPassword);
         loginButton = findViewById(R.id.btnLoginBotton);
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         noAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if (e != null){
+                if (e != null) {
                     Log.e(TAG, "Issue with login");
                     Toast.makeText(LoginActivity.this, "Username or/and Password does not match", Toast.LENGTH_SHORT).show();
                     return;

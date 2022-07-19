@@ -7,24 +7,29 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import java.util.Map.Entry;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.example.lifestyle.fragment.FriendsFragment;
 import com.example.lifestyle.fragment.HomeFragment;
 import com.example.lifestyle.fragment.ProfileFragment;
 import com.example.lifestyle.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
+
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    private static final int NUM_PAGES=4;
+    private static final int NUM_PAGES = 4;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
     HashMap<Integer, Integer> positionOfPages = new HashMap<>();
@@ -54,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private void setViewPagerListener() {
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -73,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                for(Entry<Integer, Integer> entry: positionOfPages.entrySet()) {
-                    if(entry.getValue() == item.getItemId()) {
-                       viewPager2.setCurrentItem(entry.getKey());
-                       return true;
+                for (Entry<Integer, Integer> entry : positionOfPages.entrySet()) {
+                    if (entry.getValue() == item.getItemId()) {
+                        viewPager2.setCurrentItem(entry.getKey());
+                        return true;
                     }
                 }
                 return true;
@@ -85,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class ScreenSlidePageAdapter extends FragmentStateAdapter {
-        public ScreenSlidePageAdapter(MainActivity mainActivity) {super(mainActivity);}
+        public ScreenSlidePageAdapter(MainActivity mainActivity) {
+            super(mainActivity);
+        }
 
         @NonNull
         @Override

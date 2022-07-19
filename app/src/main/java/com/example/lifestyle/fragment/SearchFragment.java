@@ -81,7 +81,8 @@ public class SearchFragment extends Fragment {
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -90,7 +91,8 @@ public class SearchFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -111,11 +113,11 @@ public class SearchFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> users, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
                 }
-                Log.i(TAG, ": "+users.size());
+                Log.i(TAG, ": " + users.size());
                 allUsers.clear();
                 allUsers.addAll(users);
                 adapter.notifyDataSetChanged();

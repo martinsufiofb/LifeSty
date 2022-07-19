@@ -12,21 +12,32 @@ public class History extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_USER_ID = "userId";
 
-    public String getCount(){
+    public String getCount() {
         return getString(KEY_COUNT);
     }
-    public String getNameOfExercise(){
+
+    public String getNameOfExercise() {
         return getString(KEY_NAME_OF_EXERCISE);
     }
-    public ParseUser getUser(){
+
+    public ParseUser getUser() {
         return getParseUser(KEY_USER);
     }
 
-    public void  setCount(String count){
+    public void setCount(String count) {
         put(KEY_COUNT, count);
     }
-    public void  setNameOfExercise(String nameofexercise){put(KEY_NAME_OF_EXERCISE, nameofexercise);}
-    public void setUser(ParseUser user){put(KEY_USER, user);}
-    public void setUserId(String userId){put(KEY_USER_ID, userId);}
+
+    public void setNameOfExercise(String nameofexercise) {
+        put(KEY_NAME_OF_EXERCISE, nameofexercise);
+    }
+
+    public void setUser(ParseUser user) {
+        put(KEY_USER, user);
+    }
+
+    public void setUserId(String userId) {
+        put(KEY_USER_ID, userId);
+    }
 
 }

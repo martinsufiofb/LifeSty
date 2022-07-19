@@ -39,11 +39,11 @@ public class SquatsFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode()==12){
+                    if (result.getResultCode() == 12) {
                         Intent intent = result.getData();
-                        if(intent != null){
-                            int noOfSquats = intent.getIntExtra("squatsResult",0);
-                            if (noOfSquats != 0){
+                        if (intent != null) {
+                            int noOfSquats = intent.getIntExtra("squatsResult", 0);
+                            if (noOfSquats != 0) {
                                 squatsCount.setText(String.valueOf(noOfSquats));
                             }
                         }
@@ -94,7 +94,7 @@ public class SquatsFragment extends Fragment {
                 String count = squatsCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
                 intent.putExtra("exerciseClicked", exerciseClicked);
-                intent.putExtra("numberOfSquats",count);
+                intent.putExtra("numberOfSquats", count);
                 activityLauncher.launch(intent);
             }
         });
@@ -105,9 +105,9 @@ public class SquatsFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 String userId = currentUser.getObjectId();
                 String count = squatsCount.getText().toString();
-                if (!count.equals("0")){
+                if (!count.equals("0")) {
                     saveHistory(currentUser, count, "Squats", userId);
-                    saveSquats(currentUser,count);
+                    saveSquats(currentUser, count);
                 }
             }
         });
@@ -120,7 +120,7 @@ public class SquatsFragment extends Fragment {
         squats.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving squats", e);
                 }
             }
@@ -128,11 +128,11 @@ public class SquatsFragment extends Fragment {
         ParseUser user = ParseUser.getCurrentUser();
         int totalSquatsCount = user.getInt("squats");
         totalSquatsCount += Integer.parseInt(squatsCount.getText().toString());
-        user.put("squats",totalSquatsCount);
+        user.put("squats", totalSquatsCount);
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String squatsno, String name, String userId){
+    public void saveHistory(ParseUser currentUser, String squatsno, String name, String userId) {
         History history = new History();
         history.setUser(currentUser);
         history.setCount(squatsno);
@@ -141,7 +141,7 @@ public class SquatsFragment extends Fragment {
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving squats history", e);
                 }
                 squatsCount.setText("0");

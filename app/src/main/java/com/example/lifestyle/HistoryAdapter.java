@@ -23,7 +23,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.history,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.history, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,7 +38,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         return historyList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView date;
         public TextView nameOfExercise;
         public TextView user;
@@ -55,7 +55,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         public void bind(History history) {
             user.setText(history.getUser().getUsername());
-            completedDate = history.getCreatedAt().toString().substring(0,10);
+            completedDate = history.getCreatedAt().toString().substring(0, 10);
             date.setText(completedDate);
             nameOfExercise.setText(history.getNameOfExercise());
             count.setText(history.getCount());

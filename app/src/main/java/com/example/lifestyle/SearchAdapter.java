@@ -21,7 +21,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private Context context;
     private List<ParseUser> users;
 
-    public SearchAdapter(Context context, List<ParseUser> users){
+    public SearchAdapter(Context context, List<ParseUser> users) {
         this.context = context;
         this.users = users;
     }
@@ -29,7 +29,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public SearchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_search,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_search, parent, false);
         return new SearchAdapter.ViewHolder(view);
     }
 
@@ -69,8 +69,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         @Override
         public void onClick(View v) {
             int userClicked = getAdapterPosition();
-            if(userClicked !=RecyclerView.NO_POSITION){
-                Intent intent = new Intent(context,SearchDetailsActivity.class);
+            if (userClicked != RecyclerView.NO_POSITION) {
+                Intent intent = new Intent(context, SearchDetailsActivity.class);
                 String usernameClicked = SearchFragment.allUsers.get(userClicked).getUsername();
                 String userId = SearchFragment.allUsers.get(userClicked).getObjectId();
                 int squatsNo = SearchFragment.allUsers.get(userClicked).getInt("squats");

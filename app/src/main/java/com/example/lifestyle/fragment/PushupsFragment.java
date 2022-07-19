@@ -39,11 +39,11 @@ public class PushupsFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode()==10){
+                    if (result.getResultCode() == 10) {
                         Intent intent = result.getData();
-                        if(intent != null){
-                            int noOfPushups = intent.getIntExtra("result",0);
-                            if (noOfPushups != 0){
+                        if (intent != null) {
+                            int noOfPushups = intent.getIntExtra("result", 0);
+                            if (noOfPushups != 0) {
                                 pushupsCount.setText(String.valueOf(noOfPushups));
                             }
                         }
@@ -93,7 +93,7 @@ public class PushupsFragment extends Fragment {
                 String count = pushupsCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
                 intent.putExtra("exerciseClicked", exerciseClicked);
-                intent.putExtra("numberOfPushups",count);
+                intent.putExtra("numberOfPushups", count);
                 activityLauncher.launch(intent);
             }
         });
@@ -104,7 +104,7 @@ public class PushupsFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 String userId = currentUser.getObjectId();
                 String count = pushupsCount.getText().toString();
-                if (!count.equals("0")){
+                if (!count.equals("0")) {
                     saveHistory(currentUser, count, "Push Ups", userId);
                     savePush(currentUser, count);
                 }
@@ -119,7 +119,7 @@ public class PushupsFragment extends Fragment {
         pushups.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving push ups", e);
                 }
             }
@@ -127,11 +127,11 @@ public class PushupsFragment extends Fragment {
         ParseUser user = ParseUser.getCurrentUser();
         int totalPushupsCount = user.getInt("pushUps");
         totalPushupsCount += Integer.parseInt(pushupsCount.getText().toString());
-        user.put("pushUps",totalPushupsCount);
+        user.put("pushUps", totalPushupsCount);
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String pushupno, String name, String userId){
+    public void saveHistory(ParseUser currentUser, String pushupno, String name, String userId) {
         History history = new History();
         history.setUser(currentUser);
         history.setCount(pushupno);
@@ -140,7 +140,7 @@ public class PushupsFragment extends Fragment {
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving push ups history", e);
                 }
                 Log.i(TAG, "Push up history save was successfully");

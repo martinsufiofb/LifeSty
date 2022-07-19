@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.PushupsCounterFragment">
 
     <TextView
         android:id="@+id/tvPushupsNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="120dp"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:text="0"/>
+        android:layout_marginTop="20dp"
+        android:text="0"
+        android:textSize="120dp" />
 
     <ImageView
         android:id="@+id/pushupsAddButton"
         android:layout_width="350dp"
         android:layout_height="350dp"
-        android:layout_marginTop="60dp"
         android:layout_below="@+id/tvPushupsNo"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/button3d"/>
+        android:layout_marginTop="60dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/button3d" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/pushupsCounterDoneBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#007500"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
-        app:cardCornerRadius="70dp"
         android:layout_marginBottom="20dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="Done">
+        android:text="Done"
+        app:cardBackgroundColor="#007500"
+        app:cardCornerRadius="70dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_done"/>
+            android:src="@drawable/ic_done" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/pushupsCounterCancelBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/red"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="30dp"
-        app:cardCornerRadius="70dp"
         android:layout_marginBottom="20dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp"
-        android:text="Done">
+        android:text="Done"
+        app:cardBackgroundColor="@color/red"
+        app:cardCornerRadius="70dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_close"/>
+            android:src="@drawable/ic_close" />
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

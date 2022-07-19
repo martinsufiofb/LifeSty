@@ -39,11 +39,11 @@ public class SitupsFragment extends Fragment {
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode()==11){
+                    if (result.getResultCode() == 11) {
                         Intent intent = result.getData();
-                        if(intent != null){
-                            int noOfSitups = intent.getIntExtra("situpsResult",0);
-                            if (noOfSitups != 0){
+                        if (intent != null) {
+                            int noOfSitups = intent.getIntExtra("situpsResult", 0);
+                            if (noOfSitups != 0) {
                                 situpsCount.setText(String.valueOf(noOfSitups));
                             }
                         }
@@ -93,7 +93,7 @@ public class SitupsFragment extends Fragment {
                 String count = situpsCount.getText().toString();
                 Intent intent = new Intent(getContext(), CameraActivity.class);
                 intent.putExtra("exerciseClicked", exerciseClicked);
-                intent.putExtra("numberOfPushups",count);
+                intent.putExtra("numberOfPushups", count);
                 activityLauncher.launch(intent);
             }
         });
@@ -104,9 +104,9 @@ public class SitupsFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 String userId = currentUser.getObjectId();
                 String count = situpsCount.getText().toString();
-                if (!count.equals("0")){
+                if (!count.equals("0")) {
                     saveHistory(currentUser, count, "Sit Ups", userId);
-                    saveSitups(currentUser,count);
+                    saveSitups(currentUser, count);
                 }
             }
         });
@@ -119,7 +119,7 @@ public class SitupsFragment extends Fragment {
         situps.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving sit ups", e);
                 }
             }
@@ -127,11 +127,11 @@ public class SitupsFragment extends Fragment {
         ParseUser user = ParseUser.getCurrentUser();
         int totalSitUps = user.getInt("sitUps");
         totalSitUps += Integer.parseInt(situpsCount.getText().toString());
-        user.put("sitUps",totalSitUps);
+        user.put("sitUps", totalSitUps);
         user.saveInBackground();
     }
 
-    public void saveHistory(ParseUser currentUser, String situpno, String name, String userId){
+    public void saveHistory(ParseUser currentUser, String situpno, String name, String userId) {
         History history = new History();
         history.setUser(currentUser);
         history.setCount(situpno);
@@ -140,7 +140,7 @@ public class SitupsFragment extends Fragment {
         history.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Error While Saving sit ups history", e);
                 }
                 situpsCount.setText("0");

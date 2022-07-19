@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.FriendsFragment"
-    android:background="@color/purple_200">
+    android:background="@color/purple_200"
+    tools:context=".fragment.FriendsFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Friends"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="Friends" />
 </RelativeLayout>

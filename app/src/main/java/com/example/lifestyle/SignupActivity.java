@@ -24,13 +24,13 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         UsernameInput = findViewById(R.id.etSignupUsername);
-        PasswordInput =findViewById(R.id.etSignupPassword);
-        SignupButton =findViewById(R.id.btnSignupBotton);
+        PasswordInput = findViewById(R.id.etSignupPassword);
+        SignupButton = findViewById(R.id.btnSignupBotton);
         hasAccount = findViewById(R.id.tvHasAccount);
         hasAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -52,7 +52,7 @@ public class SignupActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
-                if (e ==null){
+                if (e == null) {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 }

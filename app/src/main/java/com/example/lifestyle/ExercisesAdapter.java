@@ -19,7 +19,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
     private Context context;
     private List<Exercise> exercises;
 
-    public ExercisesAdapter(Context context, List<Exercise> exercises){
+    public ExercisesAdapter(Context context, List<Exercise> exercises) {
         this.context = context;
         this.exercises = exercises;
     }
@@ -27,8 +27,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(context).inflate(R.layout.item_exercise,parent,false);
-       return new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_exercise, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
         return exercises.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvTitle;
         private TextView tvDescription;
         private ImageView ivImage;
@@ -64,7 +64,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
         @Override
         public void onClick(View v) {
             int exerciseClicked = getAdapterPosition();
-            if(exerciseClicked !=RecyclerView.NO_POSITION){
+            if (exerciseClicked != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(context, ExercisesCounter.class);
                 intent.putExtra("page", exerciseClicked);
                 context.startActivity(intent);

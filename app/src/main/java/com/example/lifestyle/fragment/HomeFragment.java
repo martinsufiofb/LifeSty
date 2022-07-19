@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
     public static RecyclerView rvExercises;
     private ExercisesAdapter adapter;
     private List<Exercise> allExercises;
-    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};;
+    private static final String[] CAMERA_PERMISSION = new String[]{Manifest.permission.CAMERA};
     private static final int CAMERA_REQUEST_CODE = 10;
     private String mParam1;
     private String mParam2;
@@ -102,11 +102,11 @@ public class HomeFragment extends Fragment {
         query.findInBackground(new FindCallback<Exercise>() {
             @Override
             public void done(List<Exercise> exercises, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
                 }
-                for (Exercise exercise: exercises){
+                for (Exercise exercise : exercises) {
                     Log.i(TAG, "Exercises: " + exercise.getTitle());
                 }
                 allExercises.addAll(exercises);

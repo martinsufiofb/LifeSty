@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    tools:context=".fragment.SearchFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragment.SearchFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,21 +17,21 @@
             android:id="@+id/etSearchBar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginRight="50dp"
-            android:padding="10dp"
-            android:inputType="textPersonName"
-            android:background="@drawable/search_background"
             android:layout_marginTop="10dp"
-            android:hint="Search friends..." />
+            android:layout_marginRight="50dp"
+            android:background="@drawable/search_background"
+            android:hint="Search friends..."
+            android:inputType="textPersonName"
+            android:padding="10dp" />
 
         <ImageView
             android:id="@+id/ivSearchButton"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_search"
-            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
-            android:layout_alignParentRight="true"/>
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_search" />
     </RelativeLayout>
 
 
@@ -39,5 +39,5 @@
         android:id="@+id/rvSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp" />
 </LinearLayout>

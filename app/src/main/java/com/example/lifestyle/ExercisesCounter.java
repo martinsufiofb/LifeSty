@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class ExercisesCounter extends AppCompatActivity {
     private BottomNavigationView exercisesCounterBottomNavigationView;
-    private static final int NUM_PAGES=3;
+    private static final int NUM_PAGES = 3;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
     HashMap<Integer, Integer> positionOfPages = new HashMap<>();
@@ -32,7 +32,7 @@ public class ExercisesCounter extends AppCompatActivity {
         setContentView(R.layout.activity_exercises_counter);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        int page = intent.getIntExtra("page",0);
+        int page = intent.getIntExtra("page", 0);
         viewPager2 = findViewById(R.id.VP2);
         exercisesCounterBottomNavigationView = findViewById(R.id.bottom_navigation2);
         pageAdapter = new ScreenSlidePageAdapter(this);
@@ -45,13 +45,14 @@ public class ExercisesCounter extends AppCompatActivity {
         fragments.put(0, new PushupsFragment());
         fragments.put(1, new SitupsFragment());
         fragments.put(2, new SquatsFragment());
-        viewPager2.setCurrentItem(page,false);
+        viewPager2.setCurrentItem(page, false);
     }
 
     private void setViewPagerListener() {
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -60,7 +61,8 @@ public class ExercisesCounter extends AppCompatActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state) {
+            }
         });
     }
 
@@ -68,8 +70,8 @@ public class ExercisesCounter extends AppCompatActivity {
         exercisesCounterBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                for(Map.Entry<Integer, Integer> entry: positionOfPages.entrySet()) {
-                    if(entry.getValue() == item.getItemId()) {
+                for (Map.Entry<Integer, Integer> entry : positionOfPages.entrySet()) {
+                    if (entry.getValue() == item.getItemId()) {
                         viewPager2.setCurrentItem(entry.getKey());
                         return true;
                     }
@@ -80,7 +82,9 @@ public class ExercisesCounter extends AppCompatActivity {
     }
 
     private class ScreenSlidePageAdapter extends FragmentStateAdapter {
-        public ScreenSlidePageAdapter(ExercisesCounter exercisesCounter) {super(exercisesCounter);}
+        public ScreenSlidePageAdapter(ExercisesCounter exercisesCounter) {
+            super(exercisesCounter);
+        }
 
         @NonNull
         @Override

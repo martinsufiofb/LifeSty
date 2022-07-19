@@ -22,15 +22,14 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        fragments.put(1,new PushupsCounterFragment());
-        fragments.put(2,new SitupsCounterFragment());
-        fragments.put(3,new SquatCounterFragment());
+        fragments.put(1, new PushupsCounterFragment());
+        fragments.put(2, new SitupsCounterFragment());
+        fragments.put(3, new SquatCounterFragment());
 
         Intent intent = getIntent();
-        int exerciseChosen = intent.getIntExtra("exerciseClicked",0);
+        int exerciseChosen = intent.getIntExtra("exerciseClicked", 0);
         fragment = fragments.get(exerciseChosen);
-
-        fragmentManager.beginTransaction().replace(R.id.flContainer,fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
 
     }
 }
