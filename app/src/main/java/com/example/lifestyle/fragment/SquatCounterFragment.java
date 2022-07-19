@@ -51,6 +51,8 @@ public class SquatCounterFragment extends Fragment {
     int result_code = 12;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static double thresholdProbability = 0.989;
+    private static double bodyThresholdProbability = 0.9899;
     private String mParam1;
     private String mParam2;
     private PreviewView previewView;
@@ -205,9 +207,9 @@ public class SquatCounterFragment extends Fragment {
                                                 float rightEyeInFrameLikelihood = rightEye.getInFrameLikelihood();
                                                 float rightEyeOuterInFrameLikelihood = rightEyeOuter.getInFrameLikelihood();
 
-                                                if(personInFrameLikelyHood(allPoseLandmarks)>0.9899 && noseInFrameLikelihood>0.989 && leftEyeInFrameLikelihood>0.989
-                                                        && leftEyeOuterInFrameLikelihood>0.989 && rightEyeOuterInFrameLikelihood>0.989 && rightEyeInFrameLikelihood>0.989
-                                                        && rightEyeInnerInFrameLikelihood>0.989 && leftEyeInnerInFrameLikelihood>0.989) {
+                                                if(personInFrameLikelyHood(allPoseLandmarks)>bodyThresholdProbability && noseInFrameLikelihood>thresholdProbability && leftEyeInFrameLikelihood>thresholdProbability
+                                                        && leftEyeOuterInFrameLikelihood>thresholdProbability && rightEyeOuterInFrameLikelihood>thresholdProbability && rightEyeInFrameLikelihood>thresholdProbability
+                                                        && rightEyeInnerInFrameLikelihood>thresholdProbability && leftEyeInnerInFrameLikelihood>thresholdProbability) {
                                                     warningText.setVisibility(View.INVISIBLE);
                                                     warningBackground.setVisibility(View.INVISIBLE);
                                                     noseData.add(nose.getPosition().y);
