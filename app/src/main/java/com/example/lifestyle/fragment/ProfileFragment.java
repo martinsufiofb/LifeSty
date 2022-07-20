@@ -15,13 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.lifestyle.Graph;
+import com.example.lifestyle.utils.Graph;
 import com.example.lifestyle.History;
-import com.example.lifestyle.HistoryAdapter;
+import com.example.lifestyle.adapters.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
 import com.example.lifestyle.Pushups;
 import com.example.lifestyle.R;
@@ -34,8 +35,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.parse.FindCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -75,6 +74,9 @@ public class ProfileFragment extends Fragment {
     TextView thirdCircleName;
     CircleImageView profileImage;
     String defaultImage;
+    Switch switch7days;
+    Switch switch30days;
+    Switch switch365days;
     int pushupsTotal;
     int situpsTotal;
     int squatsTotal;
@@ -85,14 +87,10 @@ public class ProfileFragment extends Fragment {
     private List<Situps> situpsList;
     private List<Squats> squatsList;
     LineChart lineChart;
-    LineGraphSeries<DataPoint> series;
-    String past7Day;
+    int numberOfDays = 7;
     public HashMap<String,String> unDuplicatedPushUps;
     public HashMap<String,String> unDuplicatedSitUps;
     public HashMap<String,String> unDuplicatedSquats;
-    float[] yPushupsDataL = new float[7];
-    float[] ySitupsDataL = new float[7];
-    float[] ySquatsDataL = new float[7];
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -143,6 +141,9 @@ public class ProfileFragment extends Fragment {
         profileUsername.setText(currentUserUsername);
         logout =  view.findViewById(R.id.LLlogout);
         lineChart = view.findViewById(R.id.lineChart);
+        switch7days = view.findViewById(R.id.switch7days);
+        switch30days = view.findViewById(R.id.switch30days);
+        switch365days = view.findViewById(R.id.switch365days);
         defaultImage = getProfileUrl(ParseUser.getCurrentUser().getObjectId());
 
         Glide.with(this)
@@ -184,6 +185,42 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        switch7days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!switch7days.isChecked()){
+                    switch7days.toggle();
+                }else {
+                    switch30days.toggle();
+                    switch365days.toggle();
+                }
+            }
+        });
+
+        switch30days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!switch30days.isChecked()){
+                    switch30days.toggle();
+                }else {
+                    switch7days.toggle();
+                    switch365days.toggle();
+                }
+            }
+        });
+
+        switch365days.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!switch365days.isChecked()){
+                    switch365days.toggle();
+                }else {
+                    switch30days.toggle();
+                    switch7days.toggle();
+                }
+            }
+        });
+
         rvHistory = view.findViewById(R.id.rvHistory);
         historyList = new ArrayList<>();
         pushupsList = new ArrayList<>();
@@ -199,17 +236,19 @@ public class ProfileFragment extends Fragment {
         querySquats();
 
         Date currentTime = Calendar.getInstance().getTime();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentTime);
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
-        Date newDate = calendar.getTime();
-        past7Day = newDate.toString().substring(0,3);
+        Calendar day7ago = Calendar.getInstance();
+        day7ago.setTime(currentTime);
+        day7ago.add(Calendar.DAY_OF_YEAR, -numberOfDays);
+        Date newDate = day7ago.getTime();
         queryForDataPoints(newDate);
     }
 
-    private void createGraph() {
-        String[] xAxisL = Graph.setXAxis(past7Day);
-        for(int i = 0; i<7; i++){
+    private void createGraph(int days) {
+        float[] yPushupsDataL = new float[days];
+        float[] ySitupsDataL = new float[days];
+        float[] ySquatsDataL = new float[days];
+        String[] xAxisL = Graph.setXAxis(days);
+        for(int i = 0; i<days; i++){
             if(unDuplicatedPushUps.containsKey(xAxisL[i])){
                 yPushupsDataL[i] = Float.valueOf(unDuplicatedPushUps.get(xAxisL[i]));;
             } else {
@@ -227,13 +266,14 @@ public class ProfileFragment extends Fragment {
             }
         }
 
+
         ArrayList<com.github.mikephil.charting.data.Entry> yEntrys = new ArrayList<>();
         ArrayList<com.github.mikephil.charting.data.Entry> yEntrys2 = new ArrayList<>();
         ArrayList<com.github.mikephil.charting.data.Entry> yEntrys3 = new ArrayList<>();
 
         final ArrayList<String> xEntrys = new ArrayList<>();
 
-        for(int i = 0; i < yPushupsDataL.length; i++){
+        for(int i = 0; i < xAxisL.length; i++){
             yEntrys.add(new com.github.mikephil.charting.data.Entry(i, yPushupsDataL[i]));
             yEntrys2.add(new com.github.mikephil.charting.data.Entry(i, ySitupsDataL[i]));
             yEntrys3.add(new com.github.mikephil.charting.data.Entry(i, ySquatsDataL[i]));
@@ -248,29 +288,42 @@ public class ProfileFragment extends Fragment {
         dataSet2.setCircleColor(Color.parseColor("#50C878"));
         dataSet2.setLineWidth(1f);
         dataSet2.setCircleRadius(5f);
-        dataSet2.setDrawCircleHole(false);
-        dataSet2.setDrawValues(false);
+        dataSet2.setDrawCircleHole(true);
+        dataSet2.setDrawValues(true);
 
         LineDataSet dataSet = new LineDataSet(yEntrys, "Push ups");
         dataSet.setColor(Color.parseColor("#b30000"));
         dataSet.setCircleColor(Color.parseColor("#b30000"));
         dataSet.setLineWidth(1f);
         dataSet.setCircleRadius(5f);
-        dataSet.setDrawCircleHole(false);
-        dataSet.setDrawValues(false);
+        dataSet.setDrawCircleHole(true);
+        dataSet.setDrawValues(true);
 
         LineDataSet dataSet3 = new LineDataSet(yEntrys3, "Squats");
         dataSet3.setColor(Color.parseColor("#0000FF"));
         dataSet3.setCircleColor(Color.parseColor("#0000FF"));
         dataSet3.setLineWidth(1f);
         dataSet3.setCircleRadius(5f);
-        dataSet3.setDrawCircleHole(false);
-        dataSet3.setDrawValues(false);
+        dataSet3.setDrawCircleHole(true);
+        dataSet3.setDrawValues(true);
+
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
+        if(xAxisL.length>7){
+            dataSet.setDrawCircleHole(false);
+            dataSet.setDrawValues(false);
+            dataSet.setDrawCircles(false);
+            dataSet2.setDrawCircleHole(false);
+            dataSet2.setDrawValues(false);
+            dataSet2.setDrawCircles(false);
+            dataSet3.setDrawCircleHole(false);
+            dataSet3.setDrawValues(false);
+            dataSet3.setDrawCircles(false);
+            xAxis.setDrawLabels(false);
+        }
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
@@ -317,7 +370,7 @@ public class ProfileFragment extends Fragment {
                 unDuplicatedPushUps = Graph.addDuplicateDate(pushUps);
                 unDuplicatedSitUps = Graph.addDuplicateDate(sitUps);
                 unDuplicatedSquats = Graph.addDuplicateDate(squats);
-                createGraph();
+                createGraph(numberOfDays);
             }
         });
     }
