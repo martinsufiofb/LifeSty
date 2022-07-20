@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="-10dp"
-                    android:text="60"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="-10dp"
-                    android:text="100"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
@@ -161,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="-10dp"
-                    android:text="40"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
 
