@@ -1,10 +1,8 @@
-package com.example.lifestyle;
+package com.example.lifestyle.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lifestyle.R;
+import com.example.lifestyle.SearchDetailsActivity;
 import com.example.lifestyle.fragment.SearchFragment;
 import com.parse.ParseUser;
 
