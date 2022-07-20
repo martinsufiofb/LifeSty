@@ -2,6 +2,11 @@ package com.example.lifestyle;
 
 import android.app.Application;
 
+import com.example.lifestyle.model.Exercise;
+import com.example.lifestyle.model.History;
+import com.example.lifestyle.model.Pushups;
+import com.example.lifestyle.model.Situps;
+import com.example.lifestyle.model.Squats;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

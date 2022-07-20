@@ -1,16 +1,20 @@
-package com.example.lifestyle;
+package com.example.lifestyle.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("Squats")
-public class Squats extends ParseObject {
+@ParseClassName("Situps")
+public class Situps extends ParseObject {
     public static final String KEY_COUNT = "count";
     public static final String KEY_USER = "user";
 
     public String getCount() {
         return getString(KEY_COUNT);
+    }
+
+    public ParseUser getUser() {
+        return getParseUser(KEY_USER);
     }
 
     public void setCount(String count) {

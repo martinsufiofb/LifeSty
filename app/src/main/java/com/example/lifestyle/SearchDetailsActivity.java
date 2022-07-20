@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.lifestyle.adapters.HistoryAdapter;
+import com.example.lifestyle.model.History;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

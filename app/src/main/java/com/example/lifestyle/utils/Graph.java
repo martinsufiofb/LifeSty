@@ -1,6 +1,6 @@
 package com.example.lifestyle.utils;
 
-import com.example.lifestyle.History;
+import com.example.lifestyle.model.History;
 
 import java.util.Calendar;
 import java.util.Date;

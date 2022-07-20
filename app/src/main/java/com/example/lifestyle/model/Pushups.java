@@ -1,4 +1,4 @@
-package com.example.lifestyle;
+package com.example.lifestyle.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
