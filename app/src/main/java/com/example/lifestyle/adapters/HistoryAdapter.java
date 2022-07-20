@@ -1,4 +1,4 @@
-package com.example.lifestyle;
+package com.example.lifestyle.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.lifestyle.History;
+import com.example.lifestyle.R;
 
 import java.util.List;
 
