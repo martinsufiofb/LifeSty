@@ -1,4 +1,4 @@
-package com.example.lifestyle;
+package com.example.lifestyle.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.lifestyle.Exercise;
+import com.example.lifestyle.ExercisesActivity;
+import com.example.lifestyle.R;
 
 import java.util.List;
 
@@ -65,7 +68,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
         public void onClick(View v) {
             int exerciseClicked = getAdapterPosition();
             if (exerciseClicked != RecyclerView.NO_POSITION) {
-                Intent intent = new Intent(context, ExercisesCounter.class);
+                Intent intent = new Intent(context, ExercisesActivity.class);
                 intent.putExtra("page", exerciseClicked);
                 context.startActivity(intent);
             }
