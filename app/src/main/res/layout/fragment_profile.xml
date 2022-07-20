@@ -220,16 +220,75 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_below="@+id/rlRecyclerViewHolder"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_marginTop="10dp" />
+
+        <LinearLayout
+            android:id="@+id/LLSwitches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lineChart"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvPast7days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="7 days"
+                android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switch7days"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:checked="true"
+                android:allowClickWhenDisabled="false"
+                android:clickable="false"
+
+                />
+
+            <TextView
+                android:id="@+id/tvPast30days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 days"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switch30days"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:allowClickWhenDisabled="false"
+                android:checked="false"
+                />
+
+            <TextView
+                android:id="@+id/tvPast365days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="365 days"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switch365days"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:allowClickWhenDisabled="false"
+                android:checked="false"
+                />
+        </LinearLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/clearData"
             android:layout_width="380dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/lineChart"
+            android:layout_below="@+id/LLSwitches"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             app:cardBackgroundColor="#f6f8fa"
             app:cardCornerRadius="30dp">
