@@ -88,9 +88,9 @@ public class ProfileFragment extends Fragment {
     private List<Squats> squatsList;
     LineChart lineChart;
     int numberOfDays = 7;
-    public HashMap<String,String> unDuplicatedPushUps;
-    public HashMap<String,String> unDuplicatedSitUps;
-    public HashMap<String,String> unDuplicatedSquats;
+    public HashMap<String, String> unDuplicatedPushUps;
+    public HashMap<String, String> unDuplicatedSitUps;
+    public HashMap<String, String> unDuplicatedSquats;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -139,7 +139,7 @@ public class ProfileFragment extends Fragment {
         thirdCircleName = view.findViewById(R.id.tvName3);
         profileImage = view.findViewById(R.id.ivprofilepic);
         profileUsername.setText(currentUserUsername);
-        logout =  view.findViewById(R.id.LLlogout);
+        logout = view.findViewById(R.id.LLlogout);
         lineChart = view.findViewById(R.id.lineChart);
         switch7days = view.findViewById(R.id.switch7days);
         switch30days = view.findViewById(R.id.switch30days);
@@ -172,7 +172,7 @@ public class ProfileFragment extends Fragment {
                 lineChart.clear();
             }
         });
-        
+
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,11 +188,17 @@ public class ProfileFragment extends Fragment {
         switch7days.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!switch7days.isChecked()){
+                if (!switch7days.isChecked()) {
                     switch7days.toggle();
-                }else {
-                    switch30days.toggle();
-                    switch365days.toggle();
+                } else {
+                    if (switch365days.isChecked()) {
+                        switch365days.toggle();
+                    }
+                    if (switch30days.isChecked()) {
+                        switch30days.toggle();
+                    }
+                    lineChart.clear();
+                    createGraph(7);
                 }
             }
         });
@@ -200,11 +206,17 @@ public class ProfileFragment extends Fragment {
         switch30days.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!switch30days.isChecked()){
+                if (!switch30days.isChecked()) {
                     switch30days.toggle();
-                }else {
-                    switch7days.toggle();
-                    switch365days.toggle();
+                } else {
+                    if (switch365days.isChecked()) {
+                        switch365days.toggle();
+                    }
+                    if (switch7days.isChecked()) {
+                        switch7days.toggle();
+                    }
+                    lineChart.clear();
+                    createGraph(30);
                 }
             }
         });
@@ -212,11 +224,17 @@ public class ProfileFragment extends Fragment {
         switch365days.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!switch365days.isChecked()){
+                if (!switch365days.isChecked()) {
                     switch365days.toggle();
-                }else {
-                    switch30days.toggle();
-                    switch7days.toggle();
+                } else {
+                    if (switch30days.isChecked()) {
+                        switch30days.toggle();
+                    }
+                    if (switch7days.isChecked()) {
+                        switch7days.toggle();
+                    }
+                    lineChart.clear();
+                    createGraph(365);
                 }
             }
         });
@@ -238,7 +256,7 @@ public class ProfileFragment extends Fragment {
         Date currentTime = Calendar.getInstance().getTime();
         Calendar day7ago = Calendar.getInstance();
         day7ago.setTime(currentTime);
-        day7ago.add(Calendar.DAY_OF_YEAR, -numberOfDays);
+        day7ago.add(Calendar.DAY_OF_YEAR, -365);
         Date newDate = day7ago.getTime();
         queryForDataPoints(newDate);
     }
@@ -248,24 +266,23 @@ public class ProfileFragment extends Fragment {
         float[] ySitupsDataL = new float[days];
         float[] ySquatsDataL = new float[days];
         String[] xAxisL = Graph.setXAxis(days);
-        for(int i = 0; i<days; i++){
-            if(unDuplicatedPushUps.containsKey(xAxisL[i])){
-                yPushupsDataL[i] = Float.valueOf(unDuplicatedPushUps.get(xAxisL[i]));;
+        for (int i = 0; i < days; i++) {
+            if (unDuplicatedPushUps.containsKey(xAxisL[i])) {
+                yPushupsDataL[i] = Float.valueOf(unDuplicatedPushUps.get(xAxisL[i]));
             } else {
                 yPushupsDataL[i] = 0;
             }
-            if(unDuplicatedSitUps.containsKey(xAxisL[i])){
+            if (unDuplicatedSitUps.containsKey(xAxisL[i])) {
                 ySitupsDataL[i] = Float.valueOf(unDuplicatedSitUps.get(xAxisL[i]));
-            }else {
+            } else {
                 ySitupsDataL[i] = 0;
             }
-            if(unDuplicatedSquats.containsKey(xAxisL[i])){
+            if (unDuplicatedSquats.containsKey(xAxisL[i])) {
                 ySquatsDataL[i] = Float.valueOf(unDuplicatedSquats.get(xAxisL[i]));
-            }else {
+            } else {
                 ySquatsDataL[i] = 0;
             }
         }
-
 
         ArrayList<com.github.mikephil.charting.data.Entry> yEntrys = new ArrayList<>();
         ArrayList<com.github.mikephil.charting.data.Entry> yEntrys2 = new ArrayList<>();
@@ -273,13 +290,13 @@ public class ProfileFragment extends Fragment {
 
         final ArrayList<String> xEntrys = new ArrayList<>();
 
-        for(int i = 0; i < xAxisL.length; i++){
+        for (int i = 0; i < xAxisL.length; i++) {
             yEntrys.add(new com.github.mikephil.charting.data.Entry(i, yPushupsDataL[i]));
             yEntrys2.add(new com.github.mikephil.charting.data.Entry(i, ySitupsDataL[i]));
             yEntrys3.add(new com.github.mikephil.charting.data.Entry(i, ySquatsDataL[i]));
         }
 
-        for(int i = 1; i < xAxisL.length; i++){
+        for (int i = 1; i < xAxisL.length; i++) {
             xEntrys.add(xAxisL[i]);
         }
 
@@ -312,7 +329,7 @@ public class ProfileFragment extends Fragment {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        if(xAxisL.length>7){
+        if (xAxisL.length > 7) {
             dataSet.setDrawCircleHole(false);
             dataSet.setDrawValues(false);
             dataSet.setDrawCircles(false);
@@ -342,6 +359,7 @@ public class ProfileFragment extends Fragment {
         lineChart.getAxisRight().setDrawAxisLine(false);
         lineChart.getAxisRight().setDrawLabels(false);
         lineChart.setData(pieData);
+        lineChart.animateXY(3000, 3000);
         lineChart.invalidate();
     }
 
@@ -353,7 +371,7 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<History>() {
             @Override
             public void done(List<History> history, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
                 }
@@ -364,7 +382,7 @@ public class ProfileFragment extends Fragment {
                 hm.put("Push Ups", pushUps);
                 hm.put("Squats", squats);
                 hm.put("Sit Ups", sitUps);
-                for(int i = 0; i<history.size(); i++){
+                for (int i = 0; i < history.size(); i++) {
                     hm.get(history.get(i).getNameOfExercise()).add(history.get(i));
                 }
                 unDuplicatedPushUps = Graph.addDuplicateDate(pushUps);
@@ -450,13 +468,13 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<Squats>() {
             @Override
             public void done(List<Squats> squats, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting squats", e);
                     return;
                 }
                 squatsList.addAll(squats);
-                for(int i = 0; i<squatsList.size(); i++){
-                    squatsTotal+= Integer.parseInt(squatsList.get(i).getCount());
+                for (int i = 0; i < squatsList.size(); i++) {
+                    squatsTotal += Integer.parseInt(squatsList.get(i).getCount());
                 }
                 isDone(secondCircle, firstCircle, thirdCircle,
                         secondCircleName, firstCircleName, thirdCircleName,
@@ -472,13 +490,13 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<Situps>() {
             @Override
             public void done(List<Situps> situps, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting situps", e);
                     return;
                 }
                 situpsList.addAll(situps);
-                for(int i = 0; i<situpsList.size(); i++){
-                    situpsTotal+= Integer.parseInt(situpsList.get(i).getCount());
+                for (int i = 0; i < situpsList.size(); i++) {
+                    situpsTotal += Integer.parseInt(situpsList.get(i).getCount());
                 }
                 isDone(secondCircle, firstCircle, thirdCircle,
                         secondCircleName, firstCircleName, thirdCircleName,
@@ -494,13 +512,13 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<Pushups>() {
             @Override
             public void done(List<Pushups> pushups, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting pushups", e);
                     return;
                 }
                 pushupsList.addAll(pushups);
-                for(int i = 0; i<pushupsList.size(); i++){
-                    pushupsTotal+= Integer.parseInt(pushupsList.get(i).getCount());
+                for (int i = 0; i < pushupsList.size(); i++) {
+                    pushupsTotal += Integer.parseInt(pushupsList.get(i).getCount());
                 }
                 isDone(secondCircle, firstCircle, thirdCircle,
                         secondCircleName, firstCircleName, thirdCircleName,
@@ -509,7 +527,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm){
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(hm.entrySet());
         Collections.sort(list, Comparator.comparing(Entry::getValue));
         HashMap<String, Integer> temp = new LinkedHashMap<>();
@@ -520,8 +538,8 @@ public class ProfileFragment extends Fragment {
     }
 
     public static void isDone(TextView secondCircle, TextView firstCircle, TextView thirdCircle,
-                        TextView secondCircleName, TextView firstCircleName, TextView thirdCircleName,
-                        int pushupsTotal, int situpsTotal, int squatsTotal) {
+                              TextView secondCircleName, TextView firstCircleName, TextView thirdCircleName,
+                              int pushupsTotal, int situpsTotal, int squatsTotal) {
         HashMap<String, Integer> hm = new HashMap<>();
         List<TextView> l1 = new ArrayList<>();
         List<TextView> l2 = new ArrayList<>();
@@ -551,15 +569,15 @@ public class ProfileFragment extends Fragment {
         query.findInBackground(new FindCallback<History>() {
             @Override
             public void done(List<History> history, ParseException e) {
-                if (e!=null){
+                if (e != null) {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
                 }
                 historyList.addAll(history);
                 adapter.notifyDataSetChanged();
-                if (historyList.size()==0){
+                if (historyList.size() == 0) {
                     emptyRecyclerView.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     emptyRecyclerView.setVisibility(View.INVISIBLE);
                 }
             }
@@ -570,7 +588,7 @@ public class ProfileFragment extends Fragment {
         ParseUser.logOutInBackground(new LogOutCallback() {
             @Override
             public void done(ParseException e) {
-                if(e != null) {
+                if (e != null) {
                     Log.e(TAG, "Error signing out", e);
                     Toast.makeText(getContext(), "Error signing out", Toast.LENGTH_SHORT).show();
                     return;
