@@ -1,4 +1,4 @@
-package com.example.lifestyle;
+package com.lifestyle;
 
 import android.content.Context;
 
