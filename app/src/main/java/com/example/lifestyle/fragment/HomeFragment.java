@@ -18,10 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lifestyle.Exercise;
-import com.example.lifestyle.ExercisesAdapter;
+import com.example.lifestyle.adapters.ExercisesAdapter;
 import com.example.lifestyle.R;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
@@ -77,7 +76,6 @@ public class HomeFragment extends Fragment {
         rvExercises.setLayoutManager(new LinearLayoutManager(getContext()));
         queryExercises();
         if (!(hasCameraPermission())) {
-            Log.i("CAMERA", "ENTERED");
             requestPermission();
         }
     }
@@ -105,9 +103,6 @@ public class HomeFragment extends Fragment {
                 if (e != null) {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
-                }
-                for (Exercise exercise : exercises) {
-                    Log.i(TAG, "Exercises: " + exercise.getTitle());
                 }
                 allExercises.addAll(exercises);
                 adapter.notifyDataSetChanged();

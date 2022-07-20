@@ -1,7 +1,6 @@
 package com.example.lifestyle;
 
 import static com.example.lifestyle.fragment.ProfileFragment.isDone;
-import static com.example.lifestyle.fragment.ProfileFragment.sortByValue;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -10,22 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.lifestyle.fragment.ProfileFragment;
+import com.example.lifestyle.adapters.HistoryAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchDetailsActivity extends AppCompatActivity {
     CardView clearData;

@@ -16,10 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SearchView;
 
 import com.example.lifestyle.R;
-import com.example.lifestyle.SearchAdapter;
+import com.example.lifestyle.adapters.SearchAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
