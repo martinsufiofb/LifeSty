@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.PushupsCounterFragment">
+    tools:context="com.lifestyle.fragment.PushupsCounterFragment">
 
     <TextView
         android:id="@+id/tvPushupsNo"

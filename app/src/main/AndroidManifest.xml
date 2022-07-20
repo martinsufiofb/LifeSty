@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".ParseApplication"
+        android:name="com.lifestyle.ParseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,17 +22,17 @@
         android:theme="@style/Theme.LifeStyle"
         tools:targetApi="31">
         <activity
-            android:name=".SearchDetailsActivity"
+            android:name="com.lifestyle.SearchDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".CameraActivity"
+            android:name="com.lifestyle.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".ExercisesActivity"
+            android:name="com.lifestyle.ExercisesActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="com.lifestyle.MainActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.lifestyle.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,13 +41,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name="com.lifestyle.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.lifestyle.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.lifestyle.LoginActivity"
             android:exported="true" />
     </application>
 
