@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lifestyle.History;
+import com.example.lifestyle.model.History;
 import com.example.lifestyle.R;
 
 import java.util.List;

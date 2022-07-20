@@ -21,13 +21,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.lifestyle.utils.Graph;
-import com.example.lifestyle.History;
+import com.example.lifestyle.model.History;
 import com.example.lifestyle.adapters.HistoryAdapter;
 import com.example.lifestyle.LoginActivity;
-import com.example.lifestyle.Pushups;
+import com.example.lifestyle.model.Pushups;
 import com.example.lifestyle.R;
-import com.example.lifestyle.Situps;
-import com.example.lifestyle.Squats;
+import com.example.lifestyle.model.Situps;
+import com.example.lifestyle.model.Squats;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;

@@ -19,8 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.lifestyle.CameraActivity;
-import com.example.lifestyle.History;
-import com.example.lifestyle.Pushups;
+import com.example.lifestyle.model.History;
+import com.example.lifestyle.model.Pushups;
 import com.example.lifestyle.R;
 import com.parse.ParseException;
 import com.parse.ParseUser;

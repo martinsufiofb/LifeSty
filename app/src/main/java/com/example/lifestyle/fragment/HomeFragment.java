@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lifestyle.Exercise;
+import com.example.lifestyle.model.Exercise;
 import com.example.lifestyle.adapters.ExercisesAdapter;
 import com.example.lifestyle.R;
 import com.parse.FindCallback;

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.lifestyle.Exercise;
+import com.example.lifestyle.model.Exercise;
 import com.example.lifestyle.ExercisesActivity;
 import com.example.lifestyle.R;
 
