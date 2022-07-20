@@ -18,7 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ExercisesCounter extends AppCompatActivity {
+public class ExercisesActivity extends AppCompatActivity {
     private BottomNavigationView exercisesCounterBottomNavigationView;
     private static final int NUM_PAGES = 3;
     private ViewPager2 viewPager2;
@@ -29,7 +29,7 @@ public class ExercisesCounter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercises_counter);
+        setContentView(R.layout.activity_exercises);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         int page = intent.getIntExtra("page", 0);
@@ -82,7 +82,7 @@ public class ExercisesCounter extends AppCompatActivity {
     }
 
     private class ScreenSlidePageAdapter extends FragmentStateAdapter {
-        public ScreenSlidePageAdapter(ExercisesCounter exercisesCounter) {
+        public ScreenSlidePageAdapter(ExercisesActivity exercisesCounter) {
             super(exercisesCounter);
         }
 
