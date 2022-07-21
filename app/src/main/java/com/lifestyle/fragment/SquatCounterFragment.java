@@ -49,6 +49,7 @@ public class SquatCounterFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static double thresholdProbability = 0.989;
     private static double bodyThresholdProbability = 0.9899;
+    private static double squatThreshold = 260;
     private String mParam1;
     private String mParam2;
     private PreviewView previewView;
@@ -210,7 +211,7 @@ public class SquatCounterFragment extends Fragment {
                                                     warningBackground.setVisibility(View.INVISIBLE);
                                                     noseData.add(nose.getPosition().y);
 
-                                                    if (noseData.size() > 1 && noseData.get(noseData.size() - 1) - noseData.get(noseData.size() - 2) > 260) {
+                                                    if (noseData.size() > 1 && noseData.get(noseData.size() - 1) - noseData.get(noseData.size() - 2) > squatThreshold) {
                                                         noOfSquats++;
                                                         numberOfSquats.setText(noOfSquats.toString());
                                                         noseData.clear();
