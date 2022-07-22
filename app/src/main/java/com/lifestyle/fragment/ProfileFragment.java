@@ -1,5 +1,9 @@
 package com.lifestyle.fragment;
 
+import static com.lifestyle.utils.Graph.createGraph;
+import static com.lifestyle.utils.Graph.queryForDataPoints;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,11 +95,7 @@ public class ProfileFragment extends Fragment {
     private List<Pushups> pushupsList;
     private List<Situps> situpsList;
     private List<Squats> squatsList;
-    LineChart lineChart;
-    int numberOfDays = 7;
-    public HashMap<String, String> unDuplicatedPushUps;
-    public HashMap<String, String> unDuplicatedSitUps;
-    public HashMap<String, String> unDuplicatedSquats;
+    public static LineChart lineChart;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
@@ -190,6 +191,7 @@ public class ProfileFragment extends Fragment {
         });
 
         switch7days.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
                 if (!switch7days.isChecked()) {
@@ -264,138 +266,6 @@ public class ProfileFragment extends Fragment {
         day7ago.add(Calendar.DAY_OF_YEAR, -365);
         Date newDate = day7ago.getTime();
         queryForDataPoints(newDate);
-    }
-
-    private void createGraph(int days) {
-        float[] yPushupsDataL = new float[days];
-        float[] ySitupsDataL = new float[days];
-        float[] ySquatsDataL = new float[days];
-        String[] xAxisL = Graph.setXAxis(days);
-        for (int i = 0; i < days; i++) {
-            if (unDuplicatedPushUps.containsKey(xAxisL[i])) {
-                yPushupsDataL[i] = Float.valueOf(unDuplicatedPushUps.get(xAxisL[i]));
-            } else {
-                yPushupsDataL[i] = 0;
-            }
-            if (unDuplicatedSitUps.containsKey(xAxisL[i])) {
-                ySitupsDataL[i] = Float.valueOf(unDuplicatedSitUps.get(xAxisL[i]));
-            } else {
-                ySitupsDataL[i] = 0;
-            }
-            if (unDuplicatedSquats.containsKey(xAxisL[i])) {
-                ySquatsDataL[i] = Float.valueOf(unDuplicatedSquats.get(xAxisL[i]));
-            } else {
-                ySquatsDataL[i] = 0;
-            }
-        }
-
-        ArrayList<com.github.mikephil.charting.data.Entry> yEntrys = new ArrayList<>();
-        ArrayList<com.github.mikephil.charting.data.Entry> yEntrys2 = new ArrayList<>();
-        ArrayList<com.github.mikephil.charting.data.Entry> yEntrys3 = new ArrayList<>();
-
-        final ArrayList<String> xEntrys = new ArrayList<>();
-
-        for (int i = 0; i < xAxisL.length; i++) {
-            yEntrys.add(new com.github.mikephil.charting.data.Entry(i, yPushupsDataL[i]));
-            yEntrys2.add(new com.github.mikephil.charting.data.Entry(i, ySitupsDataL[i]));
-            yEntrys3.add(new com.github.mikephil.charting.data.Entry(i, ySquatsDataL[i]));
-        }
-
-        for (int i = 1; i < xAxisL.length; i++) {
-            xEntrys.add(xAxisL[i]);
-        }
-
-        LineDataSet dataSet2 = new LineDataSet(yEntrys2, "Sit ups");
-        dataSet2.setColor(Color.parseColor("#50C878"));
-        dataSet2.setCircleColor(Color.parseColor("#50C878"));
-        dataSet2.setLineWidth(1f);
-        dataSet2.setCircleRadius(5f);
-        dataSet2.setDrawCircleHole(true);
-        dataSet2.setDrawValues(true);
-
-        LineDataSet dataSet = new LineDataSet(yEntrys, "Push ups");
-        dataSet.setColor(Color.parseColor("#b30000"));
-        dataSet.setCircleColor(Color.parseColor("#b30000"));
-        dataSet.setLineWidth(1f);
-        dataSet.setCircleRadius(5f);
-        dataSet.setDrawCircleHole(true);
-        dataSet.setDrawValues(true);
-
-        LineDataSet dataSet3 = new LineDataSet(yEntrys3, "Squats");
-        dataSet3.setColor(Color.parseColor("#0000FF"));
-        dataSet3.setCircleColor(Color.parseColor("#0000FF"));
-        dataSet3.setLineWidth(1f);
-        dataSet3.setCircleRadius(5f);
-        dataSet3.setDrawCircleHole(true);
-        dataSet3.setDrawValues(true);
-
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-        if (xAxisL.length > 7) {
-            dataSet.setDrawCircleHole(false);
-            dataSet.setDrawValues(false);
-            dataSet.setDrawCircles(false);
-            dataSet2.setDrawCircleHole(false);
-            dataSet2.setDrawValues(false);
-            dataSet2.setDrawCircles(false);
-            dataSet3.setDrawCircleHole(false);
-            dataSet3.setDrawValues(false);
-            dataSet3.setDrawCircles(false);
-            xAxis.setDrawLabels(false);
-        }
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getAxisLabel(float value, AxisBase axis) {
-                return xAxisL[(int) value];
-            }
-        });
-
-        YAxis rightAxis = lineChart.getAxisRight();
-        rightAxis.setDrawAxisLine(true);
-        rightAxis.setEnabled(true);
-
-        LineData pieData = new LineData(dataSet, dataSet2, dataSet3);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawAxisLine(false);
-        lineChart.getAxisRight().setDrawLabels(false);
-        lineChart.setData(pieData);
-        lineChart.animateXY(3000,3000);
-        lineChart.invalidate();
-    }
-
-    private void queryForDataPoints(Date newDate) {
-        ParseQuery<History> query = ParseQuery.getQuery(History.class);
-        query.whereEqualTo("user", ParseUser.getCurrentUser());
-        query.whereGreaterThan("createdAt", newDate);
-        query.addAscendingOrder("createdAt");
-        query.findInBackground(new FindCallback<History>() {
-            @Override
-            public void done(List<History> history, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue getting exercises", e);
-                    return;
-                }
-                List<History> pushUps = new ArrayList<>();
-                List<History> sitUps = new ArrayList<>();
-                List<History> squats = new ArrayList<>();
-                HashMap<String, List> hm = new HashMap<>();
-                hm.put("Push Ups", pushUps);
-                hm.put("Squats", squats);
-                hm.put("Sit Ups", sitUps);
-                for (int i = 0; i < history.size(); i++) {
-                    hm.get(history.get(i).getNameOfExercise()).add(history.get(i));
-                }
-                unDuplicatedPushUps = Graph.addDuplicateDate(pushUps);
-                unDuplicatedSitUps = Graph.addDuplicateDate(sitUps);
-                unDuplicatedSquats = Graph.addDuplicateDate(squats);
-                createGraph(numberOfDays);
-            }
-        });
     }
 
     private void deleteUser(ParseUser user) {
