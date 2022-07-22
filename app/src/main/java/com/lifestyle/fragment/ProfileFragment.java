@@ -5,7 +5,6 @@ import static com.lifestyle.utils.Graph.queryForDataPoints;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,16 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.github.mikephil.charting.animation.Easing;
-import com.lifestyle.utils.Graph;
 import com.lifestyle.model.History;
 import com.lifestyle.adapters.HistoryAdapter;
 import com.lifestyle.activities.LoginActivity;
@@ -37,13 +31,6 @@ import com.example.lifestyle.R;
 import com.lifestyle.model.Situps;
 import com.lifestyle.model.Squats;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.lifestyle.utils.ReverseInterpolator;
 import com.parse.FindCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
