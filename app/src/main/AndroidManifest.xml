@@ -22,15 +22,15 @@
         android:theme="@style/Theme.LifeStyle"
         tools:targetApi="31">
         <activity
-            android:name="com.lifestyle.SearchDetailsActivity"
+            android:name="com.lifestyle.activities.SearchDetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.lifestyle.CameraActivity"
+            android:name="com.lifestyle.activities.CameraActivity"
             android:exported="false" />
         <activity
-            android:name="com.lifestyle.ExercisesActivity"
+            android:name="com.lifestyle.activities.ExercisesActivity"
             android:exported="false"
-            android:parentActivityName="com.lifestyle.MainActivity" />
+            android:parentActivityName="com.lifestyle.activities.MainActivity" />
         <activity
             android:name="com.lifestyle.SplashScreen"
             android:exported="true">
@@ -41,13 +41,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.lifestyle.SignupActivity"
+            android:name="com.lifestyle.activities.SignupActivity"
             android:exported="false" />
         <activity
-            android:name="com.lifestyle.MainActivity"
+            android:name="com.lifestyle.activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name="com.lifestyle.LoginActivity"
+            android:name="com.lifestyle.activities.LoginActivity"
             android:exported="true" />
     </application>
 

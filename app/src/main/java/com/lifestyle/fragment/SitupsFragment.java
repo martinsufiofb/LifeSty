@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.lifestyle.CameraActivity;
+import com.lifestyle.activities.CameraActivity;
 import com.lifestyle.model.History;
 import com.example.lifestyle.R;
 import com.lifestyle.model.Situps;

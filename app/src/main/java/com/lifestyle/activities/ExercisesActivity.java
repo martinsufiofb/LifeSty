@@ -1,4 +1,4 @@
-package com.lifestyle;
+package com.lifestyle.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

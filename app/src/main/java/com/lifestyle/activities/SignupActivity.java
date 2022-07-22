@@ -1,4 +1,4 @@
-package com.lifestyle;
+package com.lifestyle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.lifestyle.R;
+import com.lifestyle.activities.LoginActivity;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;

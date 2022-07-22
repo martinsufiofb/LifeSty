@@ -28,6 +28,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/squatsCount" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/squatsDoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/squatsButton"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/squat"/>
+
     <Button
         android:id="@+id/squatsDoneButton"
         android:layout_width="wrap_content"
@@ -37,4 +47,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/squatsButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

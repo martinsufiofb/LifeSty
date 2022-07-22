@@ -15,15 +15,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.mikephil.charting.animation.Easing;
 import com.lifestyle.utils.Graph;
 import com.lifestyle.model.History;
 import com.lifestyle.adapters.HistoryAdapter;
-import com.lifestyle.LoginActivity;
+import com.lifestyle.activities.LoginActivity;
 import com.lifestyle.model.Pushups;
 import com.example.lifestyle.R;
 import com.lifestyle.model.Situps;
@@ -35,6 +38,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.lifestyle.utils.ReverseInterpolator;
 import com.parse.FindCallback;
 import com.parse.LogOutCallback;
 import com.parse.ParseException;
@@ -234,6 +238,7 @@ public class ProfileFragment extends Fragment {
                         switch7days.toggle();
                     }
                     lineChart.clear();
+                    lineChart.animate();
                     createGraph(365);
                 }
             }
@@ -359,7 +364,7 @@ public class ProfileFragment extends Fragment {
         lineChart.getAxisRight().setDrawAxisLine(false);
         lineChart.getAxisRight().setDrawLabels(false);
         lineChart.setData(pieData);
-        lineChart.animateXY(3000, 3000);
+        lineChart.animateXY(3000,3000);
         lineChart.invalidate();
     }
 

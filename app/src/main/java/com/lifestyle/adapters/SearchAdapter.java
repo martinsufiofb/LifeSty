@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lifestyle.R;
-import com.lifestyle.SearchDetailsActivity;
+import com.lifestyle.activities.SearchDetailsActivity;
 import com.lifestyle.fragment.SearchFragment;
 import com.parse.ParseUser;
 

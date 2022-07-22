@@ -1,4 +1,4 @@
-package com.lifestyle;
+package com.lifestyle.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lifestyle.model.Exercise;
-import com.lifestyle.ExercisesActivity;
+import com.lifestyle.activities.ExercisesActivity;
 import com.example.lifestyle.R;
 
 import java.util.List;

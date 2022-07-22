@@ -54,4 +54,5 @@ dependencies {
     implementation "androidx.camera:camera-view:1.2.0-alpha03"
     implementation 'com.google.mlkit:pose-detection-accurate:18.0.0-beta2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.airbnb.android:lottie:5.2.0'
 }

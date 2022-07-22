@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.lifestyle.R;
+import com.lifestyle.activities.LoginActivity;
 
 public class SplashScreen extends AppCompatActivity {
     @Override
