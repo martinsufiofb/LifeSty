@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.lifestyle.R;
 import com.lifestyle.adapters.SearchAdapter;
@@ -101,10 +102,15 @@ public class SearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                allUsers.clear();
                 String text = searchBar.getText().toString();
                 ParseUser user = trie.search(text);
-                allUsers.add(user);
-                adapter.notifyDataSetChanged();
+                if(user != null){
+                    allUsers.add(user);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    Toast.makeText(getActivity(), "No User found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -118,8 +124,7 @@ public class SearchFragment extends Fragment {
                     Log.e(TAG, "Issue getting exercises", e);
                     return;
                 }
-                Log.i(TAG, ": " + users.size());
-                for(int i = 0; i<users.size();i++){
+                for (int i = 0; i < users.size(); i++) {
                     trie.insert(users.get(i));
                 }
             }
