@@ -36,7 +36,6 @@ public class Trie {
             pCrawl = pCrawl.children[index];
             pCrawl.letter = key.charAt(level);
         }
-
         pCrawl.isEndOfWord = true;
         pCrawl.user = user;
     }
@@ -45,18 +44,11 @@ public class Trie {
         int level;
         int length = key.length();
         int index;
-        String result = "";
         Trie pCrawl = root;
 
         for (level = 0; level < length; level++) {
             index = key.charAt(level) - 'a';
-
-//            if (pCrawl.children[index] == null) {
-//                return result;
-//            }
-
             pCrawl = pCrawl.children[index];
-            result += pCrawl.letter;
         }
         return pCrawl.user;
     }
