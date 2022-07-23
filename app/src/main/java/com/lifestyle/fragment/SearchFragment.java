@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.example.lifestyle.R;
 import com.lifestyle.adapters.SearchAdapter;
+import com.lifestyle.utils.Trie;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -38,6 +39,7 @@ public class SearchFragment extends Fragment {
     public static List<ParseUser> allUsers;
     EditText searchBar;
     ImageView searchButton;
+    Trie trie;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -70,6 +72,7 @@ public class SearchFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        queryUsers();
         rvSearch = view.findViewById(R.id.rvSearch);
         searchBar = view.findViewById(R.id.etSearchBar);
         searchButton = view.findViewById(R.id.ivSearchButton);
@@ -77,6 +80,8 @@ public class SearchFragment extends Fragment {
         adapter = new SearchAdapter(getContext(), allUsers);
         rvSearch.setAdapter(adapter);
         rvSearch.setLayoutManager(new LinearLayoutManager(getContext()));
+        trie = new Trie();
+
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,8 +90,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String text = searchBar.getText().toString();
-                queryUsers(text);
+
             }
 
             @Override
@@ -98,17 +102,15 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String text = searchBar.getText().toString();
-                allUsers.clear();
-                queryUsers(text);
+                ParseUser user = trie.search(text);
+                allUsers.add(user);
+                adapter.notifyDataSetChanged();
             }
         });
     }
 
-    private void queryUsers(String text) {
+    private void queryUsers() {
         ParseQuery<ParseUser> query = ParseQuery.getQuery(ParseUser.class);
-        query.whereEqualTo("username", text);
-        query.whereStartsWith("username", text);
-        query.whereContains("username", text);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> users, ParseException e) {
@@ -117,9 +119,9 @@ public class SearchFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, ": " + users.size());
-                allUsers.clear();
-                allUsers.addAll(users);
-                adapter.notifyDataSetChanged();
+                for(int i = 0; i<users.size();i++){
+                    trie.insert(users.get(i));
+                }
             }
         });
     }
