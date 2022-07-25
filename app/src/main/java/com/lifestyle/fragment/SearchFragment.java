@@ -91,7 +91,16 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                allUsers.clear();
+                adapter.notifyDataSetChanged();
+                String text = searchBar.getText().toString();
+                if (!text.equals("")) {
+                    List<ParseUser> users = trie.suggestedSearch(text);
+                    if (users != null) {
+                        allUsers.addAll(users);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
             }
 
             @Override
@@ -104,12 +113,14 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 allUsers.clear();
                 String text = searchBar.getText().toString();
-                ParseUser user = trie.search(text);
-                if(user != null){
-                    allUsers.add(user);
-                    adapter.notifyDataSetChanged();
-                }else {
-                    Toast.makeText(getActivity(), "No User found", Toast.LENGTH_SHORT).show();
+                if (!text.equals("")) {
+                    List<ParseUser> users = trie.suggestedSearch(text);
+                    if (users != null) {
+                        allUsers.addAll(users);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(), "No user found", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
