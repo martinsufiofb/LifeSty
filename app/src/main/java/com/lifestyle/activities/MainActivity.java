@@ -26,7 +26,6 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private static final int NUM_PAGES = 3;
-    boolean onHomePage = false;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
     HashMap<Integer, Integer> positionOfPages = new HashMap<>();
