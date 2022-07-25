@@ -28,6 +28,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pushupCount" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        app:layout_constraintBottom_toTopOf="@+id/pushupDoneButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_rawRes="@raw/pushup"
+        app:lottie_autoPlay="true"
+        android:layout_marginBottom="50dp"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="reverse"
+        app:layout_constraintTop_toBottomOf="@+id/pushupButton" />
+
     <Button
         android:id="@+id/pushupDoneButton"
         android:layout_width="wrap_content"
