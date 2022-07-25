@@ -48,8 +48,8 @@ public class SquatCounterFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static double thresholdProbability = 0.989;
-    private static double bodyThresholdProbability = 0.9899;
-    private static double squatThreshold = 230;
+    private static double bodyThresholdProbability = 0.989;
+    private static double squatThreshold = 260;
     private String mParam1;
     private String mParam2;
     private PreviewView previewView;
