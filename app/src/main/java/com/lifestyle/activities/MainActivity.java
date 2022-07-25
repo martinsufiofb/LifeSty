@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         viewPager2.setPageTransformer(new DepthPageTransformer());
         setBottomNavigation();
         setViewPagerListener();
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                HomeFragment.rvExercises.smoothScrollToPosition(0);
+            }
+        });
     }
 
     private void setViewPagerListener() {
