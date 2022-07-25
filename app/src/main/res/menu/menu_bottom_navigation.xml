@@ -12,11 +12,6 @@
         android:title="Search"
         app:showAsAction="always|withText" />
     <item
-        android:id="@+id/action_friends"
-        android:icon="@drawable/ic_friends"
-        android:title="Friends"
-        app:showAsAction="always|withText" />
-    <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_profile"
         android:title="Profile"

@@ -25,7 +25,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    private static final int NUM_PAGES = 4;
+    private static final int NUM_PAGES = 3;
+    boolean onHomePage = false;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
     HashMap<Integer, Integer> positionOfPages = new HashMap<>();
@@ -37,12 +38,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         positionOfPages.put(0, R.id.action_home);
         positionOfPages.put(1, R.id.action_search);
-        positionOfPages.put(2, R.id.action_friends);
-        positionOfPages.put(3, R.id.action_profile);
+        positionOfPages.put(2, R.id.action_profile);
         fragments.put(0, new HomeFragment());
         fragments.put(1, new SearchFragment());
-        fragments.put(2, new FriendsFragment());
-        fragments.put(3, new ProfileFragment());
+        fragments.put(2, new ProfileFragment());
         viewPager2 = findViewById(R.id.VP);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         pageAdapter = new ScreenSlidePageAdapter(this);
