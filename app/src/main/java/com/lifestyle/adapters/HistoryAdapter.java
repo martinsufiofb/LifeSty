@@ -17,6 +17,7 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     Context context;
     List<History> historyList;
+    private final int dateFormat = 10;
 
     public HistoryAdapter(Context context, List<History> historyList) {
         this.context = context;
@@ -58,7 +59,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
         public void bind(History history) {
             user.setText(history.getUser().getUsername());
-            completedDate = history.getCreatedAt().toString().substring(0, 10);
+            completedDate = history.getCreatedAt().toString().substring(0, dateFormat);
             date.setText(completedDate);
             nameOfExercise.setText(history.getNameOfExercise());
             count.setText(history.getCount());
