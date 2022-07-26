@@ -18,7 +18,6 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 - **Story:** Allows users to track their fitness journey
 - **Market:** People who would prefer home workout and would love a virtual home workout partner
 - **Habit:** Would be used at the convenience of the users
-- **Scope:** Connecting users with similar home work taste across the neighborhood.
 
 ## Product Spec
 
@@ -28,8 +27,7 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 
 * Users can Sign Up
 * Users can Login and Logout
-* Users can view a 4 workout exercises
-* Users can see other uses with the same fitness goals within a 5 mile radius
+* Users can view a 3 workout exercises
 * Users can View their profiles along with that of their friends 
 * Users can search for username to view users profile
 * Users sees a splash screen when app is launched
@@ -39,11 +37,8 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 **Optional Nice-to-have Stories**
 
 * App has a very polished UI
-* Users can upload picture after they reach a milestone
-* Users can like and comment on others post
-* Users can see thier friends milestones post
-* App uses camera to record the count of an exercises that is done(supported with all 4 exercises)
-
+* User can see a graph
+* User can clear data/delete account
 
 ### 2. Screen Archetypes
 
@@ -70,17 +65,14 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 * Splash Screen
   * User sees app icon once the app is launched
 
-* Community screen
-  * User can see people doing the same exercise within a 5 mile radius  
-
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 * Home Screen / TimeLine
+* Search screen
 * Profile Screen
-* Community Screen
 
 **Flow Navigation** (Screen to Screen)
 
@@ -95,7 +87,6 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
 * Home / Timeline Screen
   * Detail Screen
   * User Profile Screen
-  * Community Screen
  
 * Profile Screen
   * Detail Screen
@@ -120,18 +111,6 @@ LifeStyle - Helps users start their fitness journey/goals, see other users who h
    | Username      | String   | image author |
    | profile pic   | File     | profile pic of this |
    | Goal          | Pointer to the Goals | points to the goals section of the user |
-
-#### Post
-
-   | Property      | Type     | Description |
-   | ------------- | -------- | ------------|
-   | objectId      | String   | unique id for the user post|
-   | author        | Pointer to User| points to the author made the post |
-   | image         | File     | image that user posts |
-   | caption       | String   | image caption by author |
-   | commentsCount | Number   | number of comments that has been posted to an image |
-   | likesCount    | Number   | number of likes for the post |
-   | createdAt     | DateTime | date when post is created (default field) |
    
 ### Networking
 - [Add list of network requests by screen ]
