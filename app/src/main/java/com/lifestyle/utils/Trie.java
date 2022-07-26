@@ -12,11 +12,9 @@ public class Trie {
     ParseUser user;
     Trie previous;
     String word;
-    List<Integer> nexts;
 
     public Trie() {
         isEndOfWord = false;
-        nexts = new ArrayList<>();
         for (int i = 0; i < ALPHABET_SIZE; i++)
             children[i] = null;
     }
@@ -35,9 +33,7 @@ public class Trie {
             index = key.charAt(level) - 'a';
             if (pCrawl.children[index] == null) {
                 pCrawl.children[index] = new Trie();
-                pCrawl.nexts.add(index);
             }
-            Collections.sort(pCrawl.nexts);
             pPrevious = pCrawl;
             pCrawl = pCrawl.children[index];
             pCrawl.previous = pPrevious;
@@ -52,8 +48,10 @@ public class Trie {
         if (root.isEndOfWord) {
             results.add(root.user);
         }
-        for (int i = 0; i < root.nexts.size(); i++) {
-            display(root.children[root.nexts.get(i)], results);
+        for (int i = 0; i < root.children.length; i++) {
+            if(root.children[i] != null){
+                display(root.children[i], results);
+            }
         }
         return results;
     }
