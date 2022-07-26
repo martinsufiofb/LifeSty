@@ -48,7 +48,7 @@ public class Trie {
         pCrawl.word = key;
     }
 
-    public static List<ParseUser> display(Trie root, List<ParseUser> results) {
+    private static List<ParseUser> display(Trie root, List<ParseUser> results) {
         if (root.isEndOfWord) {
             results.add(root.user);
         }
