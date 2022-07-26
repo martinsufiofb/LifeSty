@@ -58,6 +58,9 @@ public class Trie {
         return results;
     }
 
+    // This function goes to the last node of the what the user is typing.
+    // If the user types 'fran' the function goes to node n and calls display function on node n
+    // When display function is called on node n, we get back all the children node of n that are end of words
     public static List<ParseUser> suggestedSearch(String key) {
         List<ParseUser> results = new ArrayList<>();
         int level;
